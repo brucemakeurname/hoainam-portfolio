@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #06060e;
+  --color-primary: #1F7FFE;
+  --color-accent: #CFFF04;
+  --font-family-sans: 'Space Grotesk', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+:root {
+  --bg: #06060e;
+  --primary: #1F7FFE;
+  --accent: #CFFF04;
+  --surface: rgba(31, 127, 254, 0.06);
+  --border: rgba(31, 127, 254, 0.2);
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Grain overlay — applied via GrainOverlay component */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Subtle grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(31, 127, 254, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 127, 254, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Chromatic aberration on hero text */
+.chroma {
+  text-shadow:
+    -3px 0 0 rgba(207, 255, 4, 0.35),
+    3px 0 0 rgba(31, 127, 254, 0.35);
+}
+
+/* Blue glow panel strip */
+.glow-strip {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(31, 127, 254, 0.12) 30%,
+    rgba(31, 127, 254, 0.25) 55%,
+    rgba(31, 127, 254, 0.12) 80%,
+    transparent 100%
+  );
+}
