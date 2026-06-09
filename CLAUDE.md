@@ -55,9 +55,10 @@ src/
 │   │   ├── SkillDimensions.tsx # 6 skill cards với Lucide icons, expandable
 │   │   └── CareerTimeline.tsx  # Timeline 2020→2025→ (data đã sort newest-first trong data.ts)
 │   ├── portfolio/
-│   │   ├── SoloFlowsEcosystem.tsx # Featured project block (3 pillars)
-│   │   ├── ProjectCard.tsx     # Card component cho từng project
-│   │   └── GECEShowcase.tsx    # Masonry grid ảnh thiết kế GECE
+│   │   ├── SoloFlowsEcosystem.tsx # Featured: 3 pillar cards, mỗi card có image slideshow
+│   │   ├── ProjectExplorer.tsx    # 3-col explorer: sidetab / info / image viewer
+│   │   ├── ProjectCard.tsx        # (legacy — không còn dùng trong portfolio/page.tsx)
+│   │   └── GECEShowcase.tsx       # (legacy — đã gộp vào ProjectExplorer)
 │   ├── solo-flows/
 │   │   ├── PitchHero.tsx       # Full-screen hero Solo Flows
 │   │   ├── PillarSection.tsx   # Section cho từng pillar (Platform/Agents/CS)
@@ -104,7 +105,7 @@ tr.stats.{yearsAI, agentsBuilt, platforms, designProjects, growth, tests}
 tr.skills.{sectionLabel, categories.{ai-agents, prompt-eng, platform, content, design, business}}
 tr.timeline.{sectionLabel}
 tr.cta.{viewPortfolio, exploreSF}
-tr.portfolio.{sectionLabel, title, subtitle, featured, sfTitle, sfSubtitle, whatItDoes, howBuilt, otherProjects, geceLabel}
+tr.portfolio.{sectionLabel, title, subtitle, featured, sfTitle, sfSubtitle, whatItDoes, howBuilt, otherProjects, geceLabel, processLabel, toolsLabel, noImages}
 tr.soloFlows.{heroTag, heroTagline, overviewLabel, overviewTitle, overviewBody, pillars[], whatItDoes, skillsLabel, metricsLabel, techLabel, namRoleLabel, namRoleTitle, namRoleBody, swotLabel, swotQuadrants.{strengths, weaknesses, opportunities, threats}, revenueLabel, companyLabel, influencersLabel, influencersSubtitle, visionLabel, visionTitle, visionBody, visitSite, getInTouch}
 ```
 
@@ -218,15 +219,31 @@ public/
 │   ├── avatar.jpg              # Ảnh đại diện Nam — Hero circle + favicon
 │   ├── bruce.png               # Influencer Bruce (cần thêm nếu chưa có)
 │   ├── mylara.jpg              # Influencer Mylara (cần thêm nếu chưa có)
-│   └── gece/
-│       ├── 1.png
-│       ├── tot nghiep ko so that nghiep.png
-│       ├── PA1.png
-│       ├── 1.2.png
-│       └── 1_1.png
+│   ├── gece/
+│   │   ├── 1.png
+│   │   ├── tot nghiep ko so that nghiep.png
+│   │   ├── PA1.png
+│   │   ├── 1.2.png
+│   │   └── 1_1.png
+│   └── projects/               # Ảnh minh họa từng project (copy từ D:\8. OVERALL PORTFOLIO\project img)
+│       ├── asl-the-scent.png       → project: ai-movie
+│       ├── sf-influencer.png       → project: ai-influencers
+│       ├── sf-multichannel.jpg     → project: social-automation
+│       ├── make-workflow.png       → project: asl-automation
+│       ├── gece-crm.jpg            → project: gece-crm
+│       ├── sf-platform-hero.png    → pillar: platform (SoloFlowsEcosystem)
+│       ├── sf-booking.png          → pillar: platform
+│       ├── sf-newfeed.png          → pillar: platform
+│       ├── sf-explore.png          → pillar: platform
+│       ├── sf-agents-log.jpg       → pillar: agents
+│       ├── sf-agents-discord.jpg   → pillar: agents
+│       └── sf-chatbot.png          → pillar: cs
 └── cv/
     └── CV-Nguyen-Hoai-Nam-2026.pdf   # CHƯA có — cần export và commit
 ```
+
+### Nguồn ảnh gốc
+Ảnh project gốc (chưa rename) nằm tại: `D:\8. OVERALL PORTFOLIO\project img\`
 
 ---
 
@@ -295,9 +312,40 @@ const SKILL_ICONS = {
 
 ---
 
+## Portfolio — Cấu trúc dữ liệu PROJECTS
+
+Mỗi project trong `PROJECTS` array có shape:
+```ts
+{
+  id: string
+  category: string;  categoryVi?: string
+  title: string;     titleVi?: string
+  description: string; descriptionVi?: string
+  tags: string[]
+  images?: string[]         // đường dẫn từ /public, dùng trong ProjectExplorer
+  note?: string;     noteVi?: string
+  links?: { label: string; url: string }[]
+}
+```
+
+Danh sách 6 projects hiện tại (thứ tự = thứ tự sidetab):
+1. `ai-movie` — The Scent (1 ảnh)
+2. `ai-influencers` — AI Influencer Team (1 ảnh)
+3. `social-automation` — Social Publishing Automation (1 ảnh)
+4. `asl-automation` — ASL LAW Automation Suite (1 ảnh)
+5. `gece-crm` — GECE AI CRM (1 ảnh)
+6. `gece-design` — GECE Group Design Portfolio (5 ảnh từ /images/gece/)
+
+`SOLOFLOWS_PILLARS` cũng có `images[]` — dùng trong `SoloFlowsEcosystem.tsx` (PillarImageSlider).
+
+---
+
 ## Git History
 
 ```
+3637b10  feat: add image slideshow to Solo Flows pillar cards
+8277fc7  feat: 3-column ProjectExplorer, project images, GECE design merged into projects
+9248155  docs: add CLAUDE.md — project context for future dev sessions
 a5d7bef  feat: add i18n (vi/en), light/dark mode, Lucide icons, social links, influencer section
 aca2b4b  feat: initial portfolio — Sazabi dark aesthetic, 3 pages (About/Portfolio/Solo Flows)
 ```
