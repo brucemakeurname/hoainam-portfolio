@@ -53,6 +53,9 @@ const t = {
       howBuilt: 'Cách xây dựng',
       otherProjects: '02 · Dự Án Khác',
       geceLabel: 'GECE Group · Showcase Thiết Kế Đồ Họa',
+      processLabel: 'Quá Trình',
+      toolsLabel: 'Công Cụ',
+      noImages: 'Chưa có ảnh minh họa',
     },
     soloFlows: {
       heroTag: '// Tổng Quan Công Ty · 2025–Hiện Tại',
@@ -142,6 +145,9 @@ const t = {
       howBuilt: 'How it was built',
       otherProjects: '02 · Other Projects',
       geceLabel: 'GECE Group · Graphic Design Showcase',
+      processLabel: 'Process',
+      toolsLabel: 'Tools',
+      noImages: 'No images yet',
     },
     soloFlows: {
       heroTag: '// Company Overview · 2025–Present',

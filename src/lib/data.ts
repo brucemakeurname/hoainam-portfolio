@@ -90,6 +90,7 @@ export const PROJECTS = [
     tags: ['Google AI Studio', 'Veo 3', 'ElevenLab', 'Minimax'],
     note: 'Internal at ASL LAW — not publicly released',
     noteVi: 'Nội bộ ASL LAW — chưa phát hành công khai',
+    images: ['/images/projects/asl-the-scent.png'],
   },
   {
     id: 'ai-influencers',
@@ -104,6 +105,7 @@ export const PROJECTS = [
       { label: '@mylara_vey', url: 'https://www.instagram.com/mylara_vey/' },
       { label: '@bruce_soloflows', url: 'https://www.instagram.com/bruce_soloflows/' },
     ],
+    images: ['/images/projects/sf-influencer.png'],
   },
   {
     id: 'social-automation',
@@ -114,6 +116,7 @@ export const PROJECTS = [
     description: 'Built end-to-end publish pipelines for 6 platforms (Facebook, Instagram, TikTok, Threads, X, LinkedIn). Solved isTrusted wall via Win32 mouse_event + AttachThreadInput foreground bypass.',
     descriptionVi: 'Xây dựng pipeline đăng bài tự động cho 6 nền tảng. Giải quyết vấn đề isTrusted trên Facebook/Instagram qua Win32 mouse_event + AttachThreadInput.',
     tags: ['Kimi WebBridge', 'Chrome CDP', 'AHK', 'Win32 API'],
+    images: ['/images/projects/sf-multichannel.jpg'],
   },
   {
     id: 'asl-automation',
@@ -124,6 +127,7 @@ export const PROJECTS = [
     description: 'Make.com workflows: auto-create + post content in VI+EN simultaneously on Facebook and LinkedIn, batch business card scanning automation.',
     descriptionVi: 'Workflow Make.com: tự động tạo + đăng nội dung VI+EN đồng thời trên Facebook và LinkedIn, quét card visit hàng loạt.',
     tags: ['Make.com', 'Facebook API', 'LinkedIn API'],
+    images: ['/images/projects/make-workflow.png'],
   },
   {
     id: 'gece-crm',
@@ -133,6 +137,24 @@ export const PROJECTS = [
     description: 'Built an internal CRM using Google Sheets + AppScript with AI-driven lead scoring and classification (IQL/MQL/SQL) — created when GPT-4o first launched.',
     descriptionVi: 'Xây dựng CRM nội bộ bằng Google Sheets + AppScript với AI phân loại lead (IQL/MQL/SQL) — tạo ngay khi GPT-4o ra mắt.',
     tags: ['Google AppScript', 'GPT-4o', 'Google Sheets'],
+    images: ['/images/projects/gece-crm.jpg'],
+  },
+  {
+    id: 'gece-design',
+    category: 'Graphic Design',
+    categoryVi: 'Thiết Kế Đồ Họa',
+    title: 'GECE Group — Design Portfolio',
+    titleVi: 'GECE Group — Portfolio Thiết Kế',
+    description: '44 graphic design projects across brand identity, advertising, editorial, and event materials for GECE Group — a construction & real estate company in Vietnam.',
+    descriptionVi: '44 dự án thiết kế đồ hoạ bao gồm nhận diện thương hiệu, quảng cáo, editorial và tài liệu sự kiện cho GECE Group — công ty xây dựng & bất động sản tại Việt Nam.',
+    tags: ['Adobe Illustrator', 'Photoshop', 'InDesign', 'Canva', 'Brand Identity'],
+    images: [
+      '/images/gece/1.png',
+      '/images/gece/tot nghiep ko so that nghiep.png',
+      '/images/gece/PA1.png',
+      '/images/gece/1.2.png',
+      '/images/gece/1_1.png',
+    ],
   },
 ]
 
@@ -158,6 +180,7 @@ export const SOLOFLOWS_PILLARS = [
     metrics: ['64 routes deployed', '711 tests passing', '62 DB migrations', '67 production bugs resolved', '5 revenue streams live'],
     metricsVi: ['64 routes đã triển khai', '711 tests đang chạy', '62 DB migrations', '67 production bugs đã xử lý', '5 luồng doanh thu đang hoạt động'],
     tech: 'Next.js 14 · TypeScript · Supabase · Cloudflare R2 · Vercel · Sepay + PayPal',
+    images: ['/images/projects/sf-platform-hero.png', '/images/projects/sf-booking.png', '/images/projects/sf-newfeed.png', '/images/projects/sf-explore.png'],
   },
   {
     id: 'agents',
@@ -172,6 +195,7 @@ export const SOLOFLOWS_PILLARS = [
     metrics: ['10 autonomous agents', '3 machines (BOD · Execution · CRM)', '105 AI skills installed', '6 social platforms automated', 'Discord as agent-to-agent bus'],
     metricsVi: ['10 agents tự động', '3 máy tính (BOD · Thực Thi · CRM)', '105 AI skills đã cài', '6 nền tảng mạng xã hội tự động hoá', 'Discord làm bus giao tiếp agent'],
     tech: 'OpenClaw · Claude Code · Codex · Antigravity CLI · Kimi WebBridge · Veo3 · HeyGen · Remotion',
+    images: ['/images/projects/sf-agents-log.jpg', '/images/projects/sf-agents-discord.jpg'],
   },
   {
     id: 'cs',
@@ -186,6 +210,7 @@ export const SOLOFLOWS_PILLARS = [
     metrics: ['24/7 uptime — no CS staff', 'Automatic lead classification', 'CRM pipeline integration'],
     metricsVi: ['24/7 không cần nhân viên CSKH', 'Tự động phân loại lead', 'Tích hợp CRM pipeline'],
     tech: 'Facebook API · CRM Integration · OpenClaw Customer Service Bot',
+    images: ['/images/projects/sf-chatbot.png'],
   },
 ]
 
