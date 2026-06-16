@@ -34,7 +34,7 @@ function PillarImageSlider({ pillar }: { pillar: Pillar }) {
             alt={`${pillar.title} screenshot ${idx + 1}`}
             width={800} height={450}
             className="w-full h-auto"
-            style={{ maxHeight: '180px', objectFit: 'contain', display: 'block' }}
+            style={{ maxHeight: '300px', objectFit: 'contain', display: 'block' }}
             unoptimized
           />
         </motion.div>
@@ -63,7 +63,7 @@ export function SoloFlowsEcosystem() {
   const tr = useTranslations(lang)
 
   return (
-    <section className="py-16 max-w-6xl mx-auto rounded-sm mb-16 px-8" style={{ border: '1px solid var(--primary)', background: 'var(--card-bg)', opacity: 0.9 }}>
+    <section className="py-16 w-full rounded-sm mb-16 px-8" style={{ border: '1px solid var(--primary)', background: 'var(--card-bg)', opacity: 0.9 }}>
       <div className="flex items-center gap-4 mb-2">
         <span className="text-[10px] tracking-[4px] font-mono uppercase" style={{ color: 'var(--primary)' }}>{tr.portfolio.featured}</span>
         <div className="h-px flex-1" style={{ background: 'var(--surface)' }} />

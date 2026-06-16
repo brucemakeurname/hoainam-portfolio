@@ -28,27 +28,30 @@ export function ProjectExplorer() {
   function next() { setImgIdx(i => (i + 1) % total) }
 
   return (
-    <div className="flex gap-0 min-h-[520px]" style={{ border: '1px solid var(--card-border)' }}>
+    <div className="flex flex-col md:flex-row gap-0 md:min-h-[520px]" style={{ border: '1px solid var(--card-border)' }}>
 
-      {/* ── Left: sidetab ── */}
-      <div className="w-[200px] shrink-0 overflow-y-auto" style={{ borderRight: '1px solid var(--card-border)', background: 'var(--card-bg)' }}>
+      {/* ── Sidetab: horizontal scroll on mobile, vertical on desktop ── */}
+      <div
+        className="flex flex-row overflow-x-auto md:flex-col md:w-[200px] md:shrink-0 md:overflow-x-hidden md:overflow-y-auto"
+        style={{ borderBottom: '1px solid var(--card-border)', background: 'var(--card-bg)' }}
+      >
         {PROJECTS.map((p) => {
           const isActive = p.id === activeId
           return (
             <button
               key={p.id}
               onClick={() => selectProject(p.id)}
-              className="w-full text-left px-4 py-4 transition-all"
+              className="shrink-0 md:w-full text-left px-4 py-3 md:py-4 transition-all"
               style={{
-                borderBottom: '1px solid var(--card-border)',
+                borderRight: '1px solid var(--card-border)',
                 background: isActive ? 'var(--surface)' : 'transparent',
-                borderLeft: isActive ? '2px solid var(--primary)' : '2px solid transparent',
+                borderBottom: isActive ? '2px solid var(--primary)' : '2px solid transparent',
               }}
             >
-              <p className="text-[9px] font-mono uppercase tracking-[2px] mb-0.5" style={{ color: isActive ? 'var(--primary)' : 'var(--text-muted)' }}>
+              <p className="hidden md:block text-[9px] font-mono uppercase tracking-[2px] mb-0.5" style={{ color: isActive ? 'var(--primary)' : 'var(--text-muted)' }}>
                 {lang === 'vi' ? ((p as any).categoryVi ?? p.category) : p.category}
               </p>
-              <p className="text-xs font-bold leading-snug" style={{ color: isActive ? 'var(--text)' : 'var(--text-muted)' }}>
+              <p className="text-xs font-bold leading-snug whitespace-nowrap md:whitespace-normal" style={{ color: isActive ? 'var(--text)' : 'var(--text-muted)' }}>
                 {lang === 'vi' ? ((p as any).titleVi ?? p.title) : p.title}
               </p>
             </button>
@@ -57,7 +60,7 @@ export function ProjectExplorer() {
       </div>
 
       {/* ── Middle: project info ── */}
-      <div className="flex-1 min-w-0 p-8 overflow-y-auto" style={{ borderRight: '1px solid var(--card-border)' }}>
+      <div className="flex-1 min-w-0 p-6 md:p-8 overflow-y-auto" style={{ borderBottom: '1px solid var(--card-border)' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={project.id}
@@ -118,7 +121,7 @@ export function ProjectExplorer() {
       </div>
 
       {/* ── Right: image viewer ── */}
-      <div className="w-[460px] shrink-0 flex flex-col" style={{ background: 'var(--card-bg)' }}>
+      <div className="w-full md:w-[460px] md:shrink-0 flex flex-col" style={{ background: 'var(--card-bg)' }}>
         {total === 0 ? (
           <div className="flex-1 flex items-center justify-center">
             <p className="text-[10px] font-mono" style={{ color: 'var(--text-muted)', opacity: 0.4 }}>
