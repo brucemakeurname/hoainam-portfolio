@@ -28,11 +28,11 @@ export function ProjectExplorer() {
   function next() { setImgIdx(i => (i + 1) % total) }
 
   return (
-    <div className="flex flex-col md:flex-row gap-0 md:min-h-[520px]" style={{ border: '1px solid var(--card-border)' }}>
+    <div className="flex flex-col md:flex-row gap-0 md:min-h-[600px]" style={{ border: '1px solid var(--card-border)' }}>
 
       {/* ── Sidetab: horizontal scroll on mobile, vertical on desktop ── */}
       <div
-        className="flex flex-row overflow-x-auto md:flex-col md:w-[200px] md:shrink-0 md:overflow-x-hidden md:overflow-y-auto"
+        className="flex flex-row overflow-x-auto md:flex-col md:w-[180px] md:shrink-0 md:overflow-x-hidden md:overflow-y-auto"
         style={{ borderBottom: '1px solid var(--card-border)', background: 'var(--card-bg)' }}
       >
         {PROJECTS.map((p) => {
@@ -59,35 +59,96 @@ export function ProjectExplorer() {
         })}
       </div>
 
-      {/* ── Middle: project info ── */}
-      <div className="flex-1 min-w-0 p-6 md:p-8 overflow-y-auto" style={{ borderBottom: '1px solid var(--card-border)' }}>
+      {/* ── Center: image viewer (dominant) ── */}
+      <div className="flex-1 min-w-0 flex flex-col" style={{ background: 'rgba(0,0,0,0.25)', borderRight: '1px solid var(--card-border)' }}>
+        {total === 0 ? (
+          <div className="flex-1 flex items-center justify-center" style={{ minHeight: 400 }}>
+            <p className="text-[10px] font-mono" style={{ color: 'var(--text-muted)', opacity: 0.4 }}>
+              {tr.portfolio.noImages}
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="flex-1 flex items-center justify-center p-6" style={{ minHeight: 480 }}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${project.id}-${imgIdx}`}
+                  className="w-full flex items-center justify-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <Image
+                    src={images[imgIdx]}
+                    alt={`${project.title} image ${imgIdx + 1}`}
+                    width={1400}
+                    height={900}
+                    className="w-full h-auto"
+                    style={{ objectFit: 'contain', maxHeight: '520px' }}
+                    unoptimized
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Nav bar */}
+            {total > 1 && (
+              <div className="flex items-center justify-between px-5 py-3 shrink-0" style={{ borderTop: '1px solid var(--card-border)' }}>
+                <button onClick={prev}
+                  className="p-1.5 transition-all"
+                  style={{ border: '1px solid var(--card-border)', color: 'var(--text-muted)' }}>
+                  <ChevronLeft size={14} />
+                </button>
+                <span className="text-[10px] font-mono" style={{ color: 'var(--text-muted)' }}>
+                  {imgIdx + 1} / {total}
+                </span>
+                <button onClick={next}
+                  className="p-1.5 transition-all"
+                  style={{ border: '1px solid var(--card-border)', color: 'var(--text-muted)' }}>
+                  <ChevronRight size={14} />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* ── Right: compact project info ── */}
+      <div className="w-full md:w-[260px] md:shrink-0 p-6 overflow-y-auto" style={{ background: 'var(--card-bg)' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={project.id}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
+            className="flex flex-col gap-5"
           >
-            <p className="text-[9px] font-mono uppercase tracking-[3px] mb-3" style={{ color: 'var(--primary)' }}>
-              {lang === 'vi' ? ((project as any).categoryVi ?? project.category) : project.category}
-            </p>
-            <h2 className="text-xl font-black mb-4 leading-tight" style={{ color: 'var(--text)' }}>
-              {lang === 'vi' ? ((project as any).titleVi ?? project.title) : project.title}
-            </h2>
-            <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--text-muted)' }}>
+            {/* Category + Title */}
+            <div>
+              <p className="text-[9px] font-mono uppercase tracking-[3px] mb-2" style={{ color: 'var(--primary)' }}>
+                {lang === 'vi' ? ((project as any).categoryVi ?? project.category) : project.category}
+              </p>
+              <h2 className="text-base font-black leading-snug" style={{ color: 'var(--text)' }}>
+                {lang === 'vi' ? ((project as any).titleVi ?? project.title) : project.title}
+              </h2>
+            </div>
+
+            {/* Description */}
+            <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
               {lang === 'vi' ? ((project as any).descriptionVi ?? project.description) : project.description}
             </p>
 
-            {/* Tools */}
+            {/* Tags */}
             {project.tags && project.tags.length > 0 && (
-              <div className="mb-6">
+              <div>
                 <p className="text-[9px] font-mono uppercase tracking-[3px] mb-2" style={{ color: 'var(--text-muted)' }}>
                   {tr.portfolio.toolsLabel}
                 </p>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1">
                   {project.tags.map(tag => (
-                    <span key={tag} className="text-[10px] px-2 py-0.5 font-mono"
+                    <span key={tag} className="text-[9px] px-1.5 py-0.5 font-mono"
                       style={{ color: 'var(--text-muted)', border: '1px solid var(--card-border)' }}>
                       {tag}
                     </span>
@@ -98,17 +159,17 @@ export function ProjectExplorer() {
 
             {/* Note */}
             {(project as any).note && (
-              <p className="text-[10px] font-mono italic mb-4" style={{ color: 'var(--text-muted)', opacity: 0.5 }}>
+              <p className="text-[9px] font-mono italic" style={{ color: 'var(--text-muted)', opacity: 0.5 }}>
                 {lang === 'vi' ? ((project as any).noteVi ?? (project as any).note) : (project as any).note}
               </p>
             )}
 
             {/* Links */}
             {(project as any).links && (project as any).links.length > 0 && (
-              <div className="flex flex-wrap gap-3 mt-2">
+              <div className="flex flex-col gap-2">
                 {(project as any).links.map((link: { label: string; url: string }) => (
                   <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-[10px] font-mono transition-colors"
+                    className="flex items-center gap-1.5 text-[10px] font-mono transition-opacity hover:opacity-70"
                     style={{ color: 'var(--primary)' }}>
                     <ExternalLink size={10} />
                     {link.label}
@@ -118,62 +179,6 @@ export function ProjectExplorer() {
             )}
           </motion.div>
         </AnimatePresence>
-      </div>
-
-      {/* ── Right: image viewer ── */}
-      <div className="w-full md:w-[460px] md:shrink-0 flex flex-col" style={{ background: 'var(--card-bg)' }}>
-        {total === 0 ? (
-          <div className="flex-1 flex items-center justify-center">
-            <p className="text-[10px] font-mono" style={{ color: 'var(--text-muted)', opacity: 0.4 }}>
-              {tr.portfolio.noImages}
-            </p>
-          </div>
-        ) : (
-          <>
-            {/* Image display — landscape optimized, full image, no crop */}
-            <div className="flex-1 relative flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.2)', minHeight: 280 }}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={`${project.id}-${imgIdx}`}
-                  className="w-full h-full flex items-center justify-center"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Image
-                    src={images[imgIdx]}
-                    alt={`${project.title} image ${imgIdx + 1}`}
-                    width={1200}
-                    height={800}
-                    className="w-full h-auto"
-                    style={{ objectFit: 'contain', maxHeight: '360px' }}
-                    unoptimized
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Nav bar */}
-            <div className="flex items-center justify-between px-4 py-3" style={{ borderTop: '1px solid var(--card-border)' }}>
-              <button onClick={prev} disabled={total <= 1}
-                className="p-1.5 transition-all disabled:opacity-20"
-                style={{ border: '1px solid var(--card-border)', color: 'var(--text-muted)' }}>
-                <ChevronLeft size={14} />
-              </button>
-
-              <span className="text-[10px] font-mono" style={{ color: 'var(--text-muted)' }}>
-                {imgIdx + 1} / {total}
-              </span>
-
-              <button onClick={next} disabled={total <= 1}
-                className="p-1.5 transition-all disabled:opacity-20"
-                style={{ border: '1px solid var(--card-border)', color: 'var(--text-muted)' }}>
-                <ChevronRight size={14} />
-              </button>
-            </div>
-          </>
-        )}
       </div>
 
     </div>
