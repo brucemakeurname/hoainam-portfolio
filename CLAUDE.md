@@ -55,8 +55,8 @@ src/
 │   │   ├── SkillDimensions.tsx # 6 skill cards với Lucide icons, expandable
 │   │   └── CareerTimeline.tsx  # Timeline 2020→2025→ (data đã sort newest-first trong data.ts)
 │   ├── portfolio/
-│   │   ├── SoloFlowsEcosystem.tsx # Featured: 3 pillar cards, mỗi card có image slideshow
-│   │   ├── ProjectExplorer.tsx    # 3-col explorer: sidetab / info / image viewer
+│   │   ├── SoloFlowsEcosystem.tsx # Featured: 3 pillar cards, mỗi card có image slideshow (maxHeight 300px)
+│   │   ├── ProjectExplorer.tsx    # 3-col explorer: sidetab(180px) / image-flex-1 / info(260px)
 │   │   ├── ProjectCard.tsx        # (legacy — không còn dùng trong portfolio/page.tsx)
 │   │   └── GECEShowcase.tsx       # (legacy — đã gộp vào ProjectExplorer)
 │   ├── solo-flows/
@@ -312,9 +312,25 @@ const SKILL_ICONS = {
 
 ---
 
-## Portfolio — Cấu trúc dữ liệu PROJECTS
+## Portfolio — Layout & Cấu trúc dữ liệu PROJECTS
 
-Mỗi project trong `PROJECTS` array có shape:
+### portfolio/page.tsx — Container width
+Không dùng `max-w-*`. Dùng `px-14` (56px mỗi bên) để page rộng gần sát lề màn hình.
+
+### SoloFlowsEcosystem.tsx — Featured section
+- Section là `w-full` (không có max-w constraint)
+- PillarImageSlider: `maxHeight: '300px'`
+
+### ProjectExplorer.tsx — Layout 3 cột
+```
+sidetab (180px) | image viewer (flex-1, dominant) | info panel (260px)
+```
+- **Desktop:** 3 cột cứng — image chiếm phần lớn chiều rộng, `maxHeight: '520px'`
+- **Mobile:** Stack dọc — sidetab horizontal scroll → image → info
+- Nav prev/next chỉ hiện khi project có > 1 ảnh
+- Info panel compact: category, title, description, tags (size 9px), note, links
+
+### PROJECTS data shape
 ```ts
 {
   id: string
@@ -343,6 +359,9 @@ Danh sách 6 projects hiện tại (thứ tự = thứ tự sidetab):
 ## Git History
 
 ```
+4d53a7e  feat: ProjectExplorer — image dominant layout, compact info panel
+102627e  feat: widen portfolio layout, larger pillar images, mobile-responsive explorer
+3d6daef  docs: update CLAUDE.md — ProjectExplorer, assets map, git history
 3637b10  feat: add image slideshow to Solo Flows pillar cards
 8277fc7  feat: 3-column ProjectExplorer, project images, GECE design merged into projects
 9248155  docs: add CLAUDE.md — project context for future dev sessions
