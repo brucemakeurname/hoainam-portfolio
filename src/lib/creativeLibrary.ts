@@ -97,6 +97,14 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     captionVi: 'Quảng cáo sản phẩm Gentadox Nanoshield — video commercial do AI tạo.',
     model: 'Veo 3.1',
   },
+  {
+    id: 'commercial-construction-timelapse',
+    type: 'video',
+    src: 'https://kwrnssd2wlpgmi3q.public.blob.vercel-storage.com/creative/construction-timelapse.mp4',
+    caption: 'AI-generated construction timelapse commercial concept.',
+    captionVi: 'Clip timelapse công trình do AI tạo — commercial.',
+    model: 'Veo 3.1',
+  },
 ]
 
 export const UGC_VIDEOS: CreativeItem[] = [
@@ -122,14 +130,6 @@ export const UGC_VIDEOS: CreativeItem[] = [
     src: 'https://kwrnssd2wlpgmi3q.public.blob.vercel-storage.com/creative/the-mans-sweating.mp4',
     caption: 'AI-generated UGC lifestyle clip.',
     captionVi: 'Clip UGC lifestyle do AI tạo.',
-    model: 'Veo 3.1',
-  },
-  {
-    id: 'ugc-construction-timelapse',
-    type: 'video',
-    src: 'https://kwrnssd2wlpgmi3q.public.blob.vercel-storage.com/creative/construction-timelapse.mp4',
-    caption: 'AI-generated construction timelapse concept.',
-    captionVi: 'Clip timelapse công trình do AI tạo.',
     model: 'Veo 3.1',
   },
   {
