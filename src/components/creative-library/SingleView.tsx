@@ -22,7 +22,7 @@ export function SingleView({ item, onClose }: { item: CreativeItem | null; onClo
           onClick={onClose}
         >
           <motion.div
-            className="flex flex-col md:flex-row w-full max-w-4xl max-h-full overflow-hidden"
+            className="flex flex-col md:flex-row w-full max-w-4xl max-h-full overflow-hidden rounded-2xl"
             style={{ background: 'var(--bg)', border: '1px solid var(--card-border)' }}
             initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -45,6 +45,7 @@ export function SingleView({ item, onClose }: { item: CreativeItem | null; onClo
               ) : (
                 <video
                   src={item.src}
+                  poster={item.poster}
                   className="w-full h-auto max-h-[80vh]"
                   autoPlay
                   muted

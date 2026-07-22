@@ -2,6 +2,7 @@ export type CreativeItem = {
   id: string
   type: 'image' | 'video'
   src: string
+  poster?: string
   caption: string
   captionVi: string
   model: string
@@ -74,6 +75,7 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     id: 'commercial-be-tvc',
     type: 'video',
     src: 'https://kwrnssd2wlpgmi3q.public.blob.vercel-storage.com/creative/be-tvc.mp4',
+    poster: '/images/creative/be-tvc-poster.jpg',
     caption: "TVC-style commercial spot for 'Bé' produced with AI video generation.",
     captionVi: "TVC quảng cáo cho 'Bé' sản xuất bằng AI video.",
     model: 'Gemini Omni',
@@ -82,21 +84,22 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     id: 'commercial-coca-cola-tvc',
     type: 'video',
     src: 'https://kwrnssd2wlpgmi3q.public.blob.vercel-storage.com/creative/coca-cola-tvc.mp4',
+    poster: '/images/creative/coca-cola-tvc-poster.jpg',
     caption: 'Coca-Cola style commercial concept spot generated end-to-end with AI video.',
     captionVi: 'TVC concept phong cách Coca-Cola được tạo hoàn toàn bằng AI video.',
     model: 'Gemini Omni',
   },
+  {
+    id: 'commercial-ads-gentadox-nanoshield',
+    type: 'video',
+    src: 'https://kwrnssd2wlpgmi3q.public.blob.vercel-storage.com/creative/ads-gentadox-nanoshield.mp4',
+    caption: 'Gentadox Nanoshield product ad — commercial-style AI-generated spot.',
+    captionVi: 'Quảng cáo sản phẩm Gentadox Nanoshield — video commercial do AI tạo.',
+    model: 'Veo 3.1',
+  },
 ]
 
 export const UGC_VIDEOS: CreativeItem[] = [
-  {
-    id: 'ugc-ads-gentadox-nanoshield',
-    type: 'video',
-    src: 'https://kwrnssd2wlpgmi3q.public.blob.vercel-storage.com/creative/ads-gentadox-nanoshield.mp4',
-    caption: 'Gentadox Nanoshield product ad — UGC-style AI-generated spot.',
-    captionVi: 'Quảng cáo sản phẩm Gentadox Nanoshield — video UGC do AI tạo.',
-    model: 'Veo 3.1',
-  },
   {
     id: 'ugc-colgate',
     type: 'video',
