@@ -42,13 +42,15 @@ src/
 │   ├── layout.tsx              # Root layout — ThemeProvider + LanguageProvider
 │   ├── page.tsx                # Trang About (Hero + Stats + Skills + Timeline + CTA)
 │   ├── globals.css             # CSS vars :root (dark) + .light (light mode) + utilities
-│   ├── portfolio/
-│   │   └── page.tsx            # Trang Portfolio
+│   ├── project/
+│   │   └── page.tsx            # Trang Project (đổi tên từ "Portfolio" — route cũ /portfolio redirect permanent sang /project, xem next.config.ts)
+│   ├── creative-library/
+│   │   └── page.tsx            # Trang Creative Library — gallery Static Creative + Video, xem chi tiết ở section riêng bên dưới
 │   └── solo-flows/
 │       └── page.tsx            # Trang Solo Flows (pitch deck)
 ├── components/
 │   ├── layout/
-│   │   └── Navigation.tsx      # Navbar: VIE/ENG toggle + Sun/Moon toggle + nav links
+│   │   └── Navigation.tsx      # Navbar: avatar tròn làm logo, VIE/ENG toggle, Sun/Moon toggle, nav links, hamburger menu mobile (md:hidden)
 │   ├── home/
 │   │   ├── Hero.tsx            # Hero section: avatar, tên, title, social buttons, email+phone
 │   │   ├── StatsBar.tsx        # 6 animated counters
@@ -57,8 +59,12 @@ src/
 │   ├── portfolio/
 │   │   ├── SoloFlowsEcosystem.tsx # Featured: 3 pillar cards, mỗi card có image slideshow (maxHeight 300px)
 │   │   ├── ProjectExplorer.tsx    # 3-col explorer: sidetab(180px) / image-flex-1 / info(260px)
-│   │   ├── ProjectCard.tsx        # (legacy — không còn dùng trong portfolio/page.tsx)
+│   │   ├── ProjectCard.tsx        # (legacy — không còn dùng trong project/page.tsx)
 │   │   └── GECEShowcase.tsx       # (legacy — đã gộp vào ProjectExplorer)
+│   ├── creative-library/
+│   │   ├── CreativeGallery.tsx    # 1 labeled section (vd "UGC"): grid ở md+, carousel 1-hàng auto-slide ở mobile
+│   │   ├── MediaCard.tsx          # Thumbnail card (ảnh 1:1 / video 9:16), badges: rating (top-left), duration (top-right), brand + model + language (bottom), title dưới card, slide-in 4 hướng xoay vòng
+│   │   └── SingleView.tsx         # Modal xem chi tiết kiểu Instagram — media + caption panel, floating close button
 │   ├── solo-flows/
 │   │   ├── PitchHero.tsx       # Full-screen hero Solo Flows
 │   │   ├── PillarSection.tsx   # Section cho từng pillar (Platform/Agents/CS)
@@ -71,8 +77,12 @@ src/
 ├── contexts/
 │   └── LanguageContext.tsx     # useLang() hook — lang: 'vi' | 'en', localStorage persist
 └── lib/
-    ├── data.ts                 # Tất cả data content (bilingual)
+    ├── data.ts                 # Tất cả data content (bilingual) — About/Portfolio/Solo Flows
+    ├── creativeLibrary.ts      # Data cho Creative Library (HANDMADE_CREATIVE, AI_GENERATIVE, COMMERCIAL_VIDEOS, UGC_VIDEOS) — xem section riêng
     └── translations.ts         # UI strings vi/en — useTranslations(lang)
+
+scripts/
+└── upload-creative-videos.mjs  # One-off script upload video lên Vercel Blob (xem section Creative Library)
 ```
 
 ---
@@ -99,13 +109,14 @@ export function MyComponent() {
 ### Cấu trúc translations
 
 ```
-tr.nav.{about, portfolio, soloFlows, contact}
+tr.nav.{about, portfolio, creativeLibrary, soloFlows, contact}   # portfolio label = "Project"/"Dự Án" (route đã đổi, key giữ nguyên tên cũ)
 tr.hero.{role, tagline, downloadCv, email, phone, scrollHint}
 tr.stats.{yearsAI, agentsBuilt, platforms, designProjects, growth, tests}
 tr.skills.{sectionLabel, categories.{ai-agents, prompt-eng, platform, content, design, business}}
 tr.timeline.{sectionLabel}
 tr.cta.{viewPortfolio, exploreSF}
-tr.portfolio.{sectionLabel, title, subtitle, featured, sfTitle, sfSubtitle, whatItDoes, howBuilt, otherProjects, geceLabel, processLabel, toolsLabel, noImages}
+tr.portfolio.{sectionLabel, title, subtitle, featured, sfTitle, sfSubtitle, whatItDoes, howBuilt, otherProjects, geceLabel, processLabel, toolsLabel, noImages}   # title = "PROJECT" (đổi từ "PORTFOLIO")
+tr.creativeLibrary.{sectionLabel, title, subtitle, staticCreativeLabel, videoLabel, handmadeLabel, aiGenerativeLabel, commercialLabel, ugcLabel, modelLabel, durationLabel, languageLabel, languageVi, languageEn, languageFil, languageNone, close}
 tr.soloFlows.{heroTag, heroTagline, overviewLabel, overviewTitle, overviewBody, pillars[], whatItDoes, skillsLabel, metricsLabel, techLabel, namRoleLabel, namRoleTitle, namRoleBody, swotLabel, swotQuadrants.{strengths, weaknesses, opportunities, threats}, revenueLabel, companyLabel, influencersLabel, influencersSubtitle, visionLabel, visionTitle, visionBody, visitSite, getInTouch}
 ```
 
@@ -216,7 +227,7 @@ soloflows: 'https://soloflows.com'
 ```
 public/
 ├── images/
-│   ├── avatar.jpg              # Ảnh đại diện Nam — Hero circle + favicon
+│   ├── avatar.jpg              # Ảnh đại diện Nam — Hero circle + favicon (metadata.icons trong layout.tsx) + logo tròn trong Navigation
 │   ├── bruce.png               # Influencer Bruce (cần thêm nếu chưa có)
 │   ├── mylara.jpg              # Influencer Mylara (cần thêm nếu chưa có)
 │   ├── gece/
@@ -225,25 +236,31 @@ public/
 │   │   ├── PA1.png
 │   │   ├── 1.2.png
 │   │   └── 1_1.png
-│   └── projects/               # Ảnh minh họa từng project (copy từ D:\8. OVERALL PORTFOLIO\project img)
-│       ├── asl-the-scent.png       → project: ai-movie
-│       ├── sf-influencer.png       → project: ai-influencers
-│       ├── sf-multichannel.jpg     → project: social-automation
-│       ├── make-workflow.png       → project: asl-automation
-│       ├── gece-crm.jpg            → project: gece-crm
-│       ├── sf-platform-hero.png    → pillar: platform (SoloFlowsEcosystem)
-│       ├── sf-booking.png          → pillar: platform
-│       ├── sf-newfeed.png          → pillar: platform
-│       ├── sf-explore.png          → pillar: platform
-│       ├── sf-agents-log.jpg       → pillar: agents
-│       ├── sf-agents-discord.jpg   → pillar: agents
-│       └── sf-chatbot.png          → pillar: cs
+│   ├── projects/               # Ảnh minh họa từng project (copy từ D:\8. OVERALL PORTFOLIO\project img)
+│   │   ├── asl-the-scent.png       → project: ai-movie
+│   │   ├── sf-influencer.png       → project: ai-influencers
+│   │   ├── sf-multichannel.jpg     → project: social-automation
+│   │   ├── make-workflow.png       → project: asl-automation
+│   │   ├── gece-crm.jpg            → project: gece-crm
+│   │   ├── sf-platform-hero.png    → pillar: platform (SoloFlowsEcosystem)
+│   │   ├── sf-booking.png          → pillar: platform
+│   │   ├── sf-newfeed.png          → pillar: platform
+│   │   ├── sf-explore.png          → pillar: platform
+│   │   ├── sf-agents-log.jpg       → pillar: agents
+│   │   ├── sf-agents-discord.jpg   → pillar: agents
+│   │   └── sf-chatbot.png          → pillar: cs
+│   └── creative/                # Ảnh cho Creative Library — xem section riêng bên dưới
+│       ├── fnb-promotion-poster.jpg        # AI Generative image
+│       ├── cellphones-promotion-ads.jpg    # AI Generative image
+│       ├── feature-hero.png                # Banner hero — tạo bằng Codex CLI image_gen, chỉ hiện md+ (ẩn trên mobile)
+│       └── *-poster.jpg                    # Poster frame cho từng video (10 file, xem section Creative Library)
 └── cv/
     └── CV-Nguyen-Hoai-Nam-2026.pdf   # CHƯA có — cần export và commit
 ```
 
 ### Nguồn ảnh gốc
 Ảnh project gốc (chưa rename) nằm tại: `D:\8. OVERALL PORTFOLIO\project img\`
+Video gốc cho Creative Library (chưa rename, chưa upload) nằm tại: `libary/` (root project, **không** commit vào git — xem section Creative Library)
 
 ---
 
@@ -256,8 +273,8 @@ public/
 
 ### Ưu tiên trung bình
 - [ ] **Avatar Chú Sáu & Khánh Huyền:** Hiện đang hiển thị initial letter — thêm ảnh thật vào data.ts + public/images/
-- [ ] **Mobile nav:** Navigation chưa có mobile menu (hamburger) — chỉ hiện trên md+
-- [ ] **SEO metadata:** `portfolio/page.tsx` và `solo-flows/page.tsx` đã bỏ `metadata` export (vì `'use client'`) — cần tách metadata ra file riêng nếu cần SEO
+- [x] **Mobile nav:** ~~Navigation chưa có mobile menu~~ — đã thêm hamburger toggle (`Navigation.tsx`), xem git history
+- [ ] **SEO metadata:** `project/page.tsx`, `creative-library/page.tsx` và `solo-flows/page.tsx` đã bỏ `metadata` export (vì `'use client'`) — cần tách metadata ra file riêng nếu cần SEO
 - [ ] **OG image:** Thêm open graph image để share đẹp trên social
 
 ### Tương lai
@@ -314,7 +331,7 @@ const SKILL_ICONS = {
 
 ## Portfolio — Layout & Cấu trúc dữ liệu PROJECTS
 
-### portfolio/page.tsx — Container width
+### project/page.tsx — Container width
 Không dùng `max-w-*`. Dùng `px-14` (56px mỗi bên) để page rộng gần sát lề màn hình.
 
 ### SoloFlowsEcosystem.tsx — Featured section
@@ -356,9 +373,104 @@ Danh sách 6 projects hiện tại (thứ tự = thứ tự sidetab):
 
 ---
 
+## Creative Library (`/creative-library`)
+
+Trang gallery bilingual giới thiệu toàn bộ sản phẩm creative của Nam — chia 2 khu vực chính, layout **2 cột** ở desktop (`lg:grid-cols-[1fr_1.3fr]`, cột Video rộng hơn Static): **STATIC CREATIVE** (Hand-made Creative + AI Generative) và **VIDEO** (UGC + Commercial).
+
+### Data — `src/lib/creativeLibrary.ts`
+
+```ts
+type CreativeItem = {
+  id: string
+  type: 'image' | 'video'
+  src: string                 // local /public path (ảnh) hoặc Vercel Blob URL (video)
+  poster?: string              // poster frame cho video — BẮT BUỘC, browser tự render frame đầu không ổn định trên mobile
+  caption: string; captionVi: string
+  model: string                 // vd 'Veo 3.1', 'Gemini Omni', 'GPT-Image-2', 'Kling', 'Omni'
+  duration?: string             // 'M:SS', chỉ video
+  language?: 'vi' | 'en' | 'fil' | 'none'   // ngôn ngữ thoại trong video
+  rating?: number                // 1-5, hiện thành sao vàng góc trên-trái card
+  brand?: string                 // tên brand/sản phẩm, hiện badge xanh trên card
+  title?: string; titleVi?: string   // tiêu đề ngắn hiện dưới card (không cần click vẫn hiểu nội dung)
+}
+
+export const HANDMADE_CREATIVE   // 5 ảnh GECE (dùng lại GECE_IMAGES path), brand: 'GECE Group'
+export const AI_GENERATIVE       // 2 ảnh AI-generated, model: 'GPT-Image-2'
+export const COMMERCIAL_VIDEOS   // 4 video — sắp xếp theo rating giảm dần
+export const UGC_VIDEOS          // 6 video — sắp xếp theo rating giảm dần
+```
+
+**Khi thêm/sửa item:** luôn set `poster` (không dựa vào browser tự render frame đầu — lỗi phổ biến trên mobile), và nhớ cập nhật cả `title`/`titleVi` để card có context mà không cần click.
+
+### Video hosting — Vercel Blob
+
+Video quá nặng (tổng ~250MB, 1 file 102MB) để commit vào git/serve từ `public/`. Đã tạo Blob store `creative-library` (id `store_kWRNSsd2wLPGMI3q`) gắn với project, token `BLOB_READ_WRITE_TOKEN` đã set trong `.env.local` (gitignored) và trong Vercel project env vars.
+
+**Quy trình thêm video mới:**
+1. Copy file gốc vào `libary/` (thư mục gốc project, gitignored, KHÔNG commit)
+2. Thêm entry vào `scripts/upload-creative-videos.mjs` (mảng `VIDEOS`: `{ slug, file }`)
+3. Chạy `node --env-file=.env.local scripts/upload-creative-videos.mjs` → in ra URL Blob, ghi vào `scripts/creative-video-urls.json` (gitignored, chỉ dùng tạm để copy URL)
+4. Paste URL thật vào `src/lib/creativeLibrary.ts` (field `src`)
+5. Tạo poster: `ffmpeg -y -ss <giây> -i "libary/<file>" -frames:v 1 -q:v 3 "public/images/creative/<slug>-poster.jpg"`, set field `poster`
+
+### MediaCard — badge layout
+
+```
+┌─────────────────────┐
+│ ★★★★★         0:32  │  ← rating (top-left) / duration (top-right)
+│                      │
+│     [ảnh/video]      │
+│                      │
+│  [BRAND]             │  ← brand badge (nếu có), nền var(--primary)
+│  MODEL   LANGUAGE     │  ← model + language pill
+└─────────────────────┘
+  Title ngắn dưới card     ← title/titleVi, luôn hiện không cần click
+```
+
+- Aspect ratio: ảnh `1:1`, video `9:16` — set động theo `item.type` trong `MediaCard.tsx`
+- Double-bezel: outer shell (`rounded-2xl p-1`, `var(--surface)`) bọc inner card (`rounded-xl`)
+- Entrance animation: slide-in xoay vòng 4 hướng (trái/lên/phải/xuống) theo `index % 4` — đảm bảo 4 card liên tiếp không trùng hướng, duration 1s
+
+### Mobile-specific (khác biệt so với desktop)
+- Mỗi `CreativeGallery` (Hand-made/AI Generative/UGC/Commercial) là **carousel 1 hàng** cuộn ngang + snap, auto-slide mỗi ~3.2s (`CreativeGallery.tsx`, dùng `window.matchMedia('(max-width: 767px)')` để chỉ chạy dưới `md`). Từ `md:` trở lên revert về grid tĩnh.
+- Background trang trí (feature-hero.png, grid-bg pattern, ambient glow, GlowPanel 2 bên) **ẩn hoàn toàn dưới `md:`** — chỉ desktop mới thấy, tránh rối mắt trên màn nhỏ.
+- Padding trang giảm `px-14 → px-4` dưới `md:`.
+
+### SingleView (modal chi tiết kiểu Instagram)
+- Layout: `flex-col md:flex-row` — media trên, caption panel dưới (mobile) / media trái, caption phải (desktop)
+- **Floating close button** (`fixed top-4 right-4`, ngoài card) — bắt buộc phải có, vì trên mobile media 9:16 rất cao, nút X trong caption panel bị đẩy xuống rất xa nếu không có nút nổi riêng
+- Caption panel hiện: brand badge → title → model → rating (sao) → duration/language → caption đầy đủ → icon like/comment/send (chỉ trang trí, KHÔNG có logic thật)
+- Video autoplay + muted + loop + `controls`; poster attribute dùng chung field với MediaCard
+
+### Feature hero image
+`public/images/creative/feature-hero.png` — tạo bằng **Codex CLI** (`codex exec` với `image_gen` tool, feature `image_generation` phải bật — check bằng `codex features list`). File được Codex sinh ra nằm ở `~/.codex/generated_images/`, phải tự copy thủ công vào `public/` (Codex chạy sandbox read-only, không tự ghi được vào repo).
+
+---
+
 ## Git History
 
 ```
+5566306  fix: video thumbnails missing on mobile + unreachable modal close button
+de25567  fix: make Creative Library mobile-friendly
+8daf2d8  feat: add AI-generated feature hero image to Creative Library
+703fb56  fix: add mobile hamburger menu to Navigation
+e14e7fd  feat: add brand/product tag and title captions to Creative Library videos
+da232c1  feat: add star-rating badge to Creative Library videos
+7272c5b  feat: Creative Library polish — nav avatar logo, hero-style bg, layout fixes
+1747ec0  style: elevate Creative Library to Ethereal Glass premium treatment
+64a2490  feat: add duration + spoken-language badges to Creative Library videos
+c001196  content: expand Creative Library subtitle to detail creative + AI model experience
+e9628cb  fix: reclassify construction-timelapse video from UGC to Commercial
+54d219b  style: redesign Creative Library gallery — 2-column layout, type-aware aspect ratios, entrance animations
+cdad61e  feat: rename Portfolio route to Project, add /portfolio redirect
+f1b9910  feat: add Creative Library page and wire up navigation
+48acb4e  feat: add SingleView Instagram-style modal component
+6958fb2  feat: add CreativeGallery labeled grid section component
+9090f49  feat: add MediaCard gallery thumbnail component
+b02bfb4  feat: add Creative Library data (handmade, AI generative, commercial, UGC)
+040552f  feat: add Creative Library and Project rename translations
+62e3ae8  feat: add AI-generative creative images to public assets
+d4d2533  chore: add Vercel Blob upload script for creative library videos
 4d53a7e  feat: ProjectExplorer — image dominant layout, compact info panel
 102627e  feat: widen portfolio layout, larger pillar images, mobile-responsive explorer
 3d6daef  docs: update CLAUDE.md — ProjectExplorer, assets map, git history
