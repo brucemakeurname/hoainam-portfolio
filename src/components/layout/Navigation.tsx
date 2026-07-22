@@ -2,8 +2,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { Sun, Moon } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Sun, Moon, Menu, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useLang } from '@/contexts/LanguageContext'
 import { useTranslations } from '@/lib/translations'
@@ -15,8 +15,10 @@ export function Navigation() {
   const { lang, setLang } = useLang()
   const tr = useTranslations(lang)
   const [mounted, setMounted] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => { setMounted(true) }, [])
+  useEffect(() => { setMobileOpen(false) }, [pathname])
 
   const NAV_LINKS = [
     { href: '/', label: tr.nav.about },
@@ -88,8 +90,53 @@ export function Navigation() {
           >
             {tr.nav.contact}
           </a>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileOpen((v) => !v)}
+            className="p-2 rounded-full transition-all md:hidden"
+            style={{ border: '1px solid var(--card-border)', color: 'var(--text)' }}
+            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile menu panel */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.nav
+            className="md:hidden overflow-hidden"
+            style={{ background: 'var(--nav-bg)', borderTop: '1px solid var(--card-border)', backdropFilter: 'blur(8px)' }}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+          >
+            <div className="px-6 py-4 flex flex-col gap-4">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs tracking-[3px] uppercase font-mono transition-colors"
+                  style={{ color: pathname === link.href ? 'var(--text)' : 'var(--text-muted)' }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <a
+                href="mailto:c.nguyenhoainam11122000@gmail.com"
+                className="text-xs tracking-[2px] uppercase font-mono px-4 py-2 text-center transition-all"
+                style={{ border: '1px solid var(--primary)', color: 'var(--primary)' }}
+              >
+                {tr.nav.contact}
+              </a>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </motion.header>
   )
 }
