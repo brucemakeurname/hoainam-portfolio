@@ -42,3 +42,6 @@ next-env.d.ts
 
 # superpowers scratch state
 .superpowers/
+
+# creative video URL manifest (contains build-time-only blob URLs)
+scripts/creative-video-urls.json
