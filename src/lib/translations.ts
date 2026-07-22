@@ -5,6 +5,7 @@ const t = {
     nav: {
       about: 'Về Tôi',
       portfolio: 'Dự Án',
+      creativeLibrary: 'Thư Viện Sáng Tạo',
       soloFlows: 'Solo Flows',
       contact: 'Liên Hệ',
     },
@@ -44,7 +45,7 @@ const t = {
     },
     portfolio: {
       sectionLabel: '01 · Dự Án',
-      title: 'PORTFOLIO',
+      title: 'PROJECT',
       subtitle: 'Xây dựng bằng Prompt Engineering, Harness Engineering, Vibecoding và AI Fluency — trong 4 năm.',
       featured: 'Dự Án Nổi Bật',
       sfTitle: 'HỆ SINH THÁI SOLO FLOWS',
@@ -91,12 +92,26 @@ const t = {
       visitSite: 'Truy cập soloflows.com ↗',
       getInTouch: 'Liên hệ',
     },
+    creativeLibrary: {
+      sectionLabel: '// Thư Viện Sáng Tạo',
+      title: 'CREATIVE LIBRARY',
+      subtitle: 'Toàn bộ sản phẩm sáng tạo — từ thiết kế thủ công đến AI Generative, TVC đến UGC.',
+      staticCreativeLabel: 'STATIC CREATIVE',
+      videoLabel: 'VIDEO',
+      handmadeLabel: 'Sản Phẩm Thủ Công',
+      aiGenerativeLabel: 'AI Generative',
+      commercialLabel: 'Quảng Cáo (Commercial)',
+      ugcLabel: 'UGC',
+      modelLabel: 'Model AI',
+      close: 'Đóng',
+    },
   },
 
   en: {
     nav: {
       about: 'About',
-      portfolio: 'Portfolio',
+      portfolio: 'Project',
+      creativeLibrary: 'Creative Library',
       soloFlows: 'Solo Flows',
       contact: 'Contact',
     },
@@ -136,7 +151,7 @@ const t = {
     },
     portfolio: {
       sectionLabel: '01 · Projects',
-      title: 'PORTFOLIO',
+      title: 'PROJECT',
       subtitle: 'Built with Prompt Engineering, Harness Engineering, Vibecoding, and AI Fluency — across 4 years.',
       featured: 'Featured Project',
       sfTitle: 'SOLO FLOWS ECOSYSTEM',
@@ -182,6 +197,19 @@ const t = {
         'Solo Flows is proof of concept and live product. The same agent architecture that runs Solo Flows can be deployed for any SME — zero headcount, full capability.',
       visitSite: 'Visit soloflows.com ↗',
       getInTouch: 'Get in touch',
+    },
+    creativeLibrary: {
+      sectionLabel: '// Creative Library',
+      title: 'CREATIVE LIBRARY',
+      subtitle: 'The full body of creative work — from hand-made design to AI Generative, TVC to UGC.',
+      staticCreativeLabel: 'STATIC CREATIVE',
+      videoLabel: 'VIDEO',
+      handmadeLabel: 'Hand-made Creative',
+      aiGenerativeLabel: 'AI Generative',
+      commercialLabel: 'Commercial',
+      ugcLabel: 'UGC',
+      modelLabel: 'AI Model',
+      close: 'Close',
     },
   },
 }
