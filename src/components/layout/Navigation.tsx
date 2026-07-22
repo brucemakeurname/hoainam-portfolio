@@ -19,7 +19,8 @@ export function Navigation() {
 
   const NAV_LINKS = [
     { href: '/', label: tr.nav.about },
-    { href: '/portfolio', label: tr.nav.portfolio },
+    { href: '/project', label: tr.nav.portfolio },
+    { href: '/creative-library', label: tr.nav.creativeLibrary },
     { href: '/solo-flows', label: tr.nav.soloFlows },
   ]
 
