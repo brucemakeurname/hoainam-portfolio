@@ -32,9 +32,12 @@ export default function CreativeLibraryPage() {
   const [selected, setSelected] = useState<CreativeItem | null>(null)
 
   return (
-    <div className="relative pt-20 pb-16 overflow-hidden grid-bg" style={{ background: 'var(--bg)' }}>
-      {/* Feature banner — generated with Codex CLI image_gen */}
-      <div className="absolute top-0 left-0 right-0 h-[420px] pointer-events-none -z-20" aria-hidden="true">
+    <div className="relative pt-20 pb-16 overflow-hidden" style={{ background: 'var(--bg)' }}>
+      {/* Grid pattern — hidden on mobile per request (background clutter) */}
+      <div className="hidden md:block grid-bg absolute inset-0 pointer-events-none -z-30" aria-hidden="true" />
+
+      {/* Feature banner — generated with Codex CLI image_gen. Hidden on mobile per request (background clutter). */}
+      <div className="hidden md:block absolute top-0 left-0 right-0 h-[420px] pointer-events-none -z-20" aria-hidden="true">
         <Image
           src="/images/creative/feature-hero.png"
           alt=""
@@ -50,23 +53,25 @@ export default function CreativeLibraryPage() {
         />
       </div>
 
-      {/* Hero-style ambient background — same treatment as the About page hero */}
+      {/* Hero-style ambient background — hidden on mobile per request (background clutter) */}
       <div
-        className="absolute inset-0 pointer-events-none -z-10"
+        className="hidden md:block absolute inset-0 pointer-events-none -z-10"
         style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(31,127,254,0.14) 0%, transparent 70%)' }}
         aria-hidden="true"
       />
-      <GlowPanel side="left" />
-      <GlowPanel side="right" />
+      <div className="hidden md:block">
+        <GlowPanel side="left" />
+        <GlowPanel side="right" />
+      </div>
 
       <motion.div
-        className="px-14 mb-10"
+        className="px-4 md:px-14 mb-10"
         initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
       >
         <div
-          className="rounded-[1.75rem] p-6 md:p-8"
+          className="rounded-[1.75rem] p-5 md:p-8"
           style={{
             background: 'var(--card-bg)',
             border: '1px solid var(--card-border)',
@@ -126,8 +131,8 @@ export default function CreativeLibraryPage() {
         </div>
 
         <div
-          className="px-14 grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-x-10 gap-y-12 items-start"
-          style={{ borderTop: '1px solid var(--card-border)', paddingTop: '2.5rem' }}
+          className="px-4 md:px-14 grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-x-10 gap-y-10 md:gap-y-12 items-start"
+          style={{ borderTop: '1px solid var(--card-border)', paddingTop: '2rem' }}
         >
           <div
             className="lg:pr-6"

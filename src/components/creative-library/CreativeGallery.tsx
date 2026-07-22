@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 import { MediaCard } from './MediaCard'
 import type { CreativeItem } from '@/lib/creativeLibrary'
 
@@ -13,11 +14,30 @@ export function CreativeGallery({
   onSelect: (item: CreativeItem) => void
 }) {
   const isVideo = items[0]?.type === 'video'
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  // Auto-slide the row on mobile only (below the md breakpoint, where the
+  // grid becomes a single horizontally-scrollable row).
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const mobileQuery = window.matchMedia('(max-width: 767px)')
+
+    const interval = setInterval(() => {
+      if (!mobileQuery.matches) return
+      const maxScroll = el.scrollWidth - el.clientWidth
+      if (maxScroll <= 0) return
+      const next = el.scrollLeft + el.clientWidth * 0.82
+      el.scrollTo({ left: next >= maxScroll - 4 ? 0 : next, behavior: 'smooth' })
+    }, 3200)
+
+    return () => clearInterval(interval)
+  }, [])
 
   return (
-    <div className="mb-12">
+    <div className="mb-10 md:mb-12">
       <motion.div
-        className="mb-4"
+        className="mb-4 px-4 md:px-0"
         initial={{ opacity: 0, x: -8 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
@@ -37,14 +57,24 @@ export function CreativeGallery({
         </span>
       </motion.div>
       <div
+        ref={scrollRef}
         className={
-          isVideo
-            ? 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2.5'
-            : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3'
+          'flex overflow-x-auto snap-x snap-mandatory gap-2.5 px-4 -mx-4 pb-1 scrollbar-hide ' +
+          'md:mx-0 md:px-0 md:pb-0 md:overflow-visible md:snap-none md:grid md:gap-3 ' +
+          (isVideo
+            ? 'md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'
+            : 'md:grid-cols-3')
         }
       >
         {items.map((item, index) => (
-          <MediaCard key={item.id} item={item} index={index} onClick={() => onSelect(item)} />
+          <div
+            key={item.id}
+            className={
+              'shrink-0 snap-start md:shrink md:w-auto ' + (isVideo ? 'w-[40%]' : 'w-[46%]')
+            }
+          >
+            <MediaCard item={item} index={index} onClick={() => onSelect(item)} />
+          </div>
         ))}
       </div>
     </div>
