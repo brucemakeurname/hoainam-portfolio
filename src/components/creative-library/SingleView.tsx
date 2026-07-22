@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
-import { X, Heart, MessageCircle, Send, Star } from 'lucide-react'
+import { X, Heart, MessageCircle, Send, Star, Tag } from 'lucide-react'
 import { useLang } from '@/contexts/LanguageContext'
 import { useTranslations } from '@/lib/translations'
 import type { CreativeItem } from '@/lib/creativeLibrary'
@@ -18,6 +18,7 @@ export function SingleView({ item, onClose }: { item: CreativeItem | null; onClo
   const { lang } = useLang()
   const tr = useTranslations(lang)
   const language = item ? languageLabel(item.language, tr) : null
+  const title = item ? (lang === 'vi' ? item.titleVi ?? item.title : item.title) : null
 
   return (
     <AnimatePresence>
@@ -75,6 +76,20 @@ export function SingleView({ item, onClose }: { item: CreativeItem | null; onClo
                   <X size={16} />
                 </button>
               </div>
+
+              {item.brand && (
+                <span
+                  className="inline-flex items-center gap-1.5 self-start px-2.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-[1px] font-bold"
+                  style={{ background: 'var(--primary)', color: '#fff' }}
+                >
+                  <Tag size={10} />
+                  {item.brand}
+                </span>
+              )}
+
+              {title && (
+                <p className="text-base font-black leading-snug" style={{ color: 'var(--text)' }}>{title}</p>
+              )}
 
               <p className="text-sm font-bold" style={{ color: 'var(--text)' }}>{item.model}</p>
 

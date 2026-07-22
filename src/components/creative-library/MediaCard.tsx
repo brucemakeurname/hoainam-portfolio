@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Play, Star } from 'lucide-react'
+import { Play, Star, Tag } from 'lucide-react'
 import { useLang } from '@/contexts/LanguageContext'
 import { useTranslations } from '@/lib/translations'
 import type { CreativeItem } from '@/lib/creativeLibrary'
@@ -35,6 +35,7 @@ export function MediaCard({
   const tr = useTranslations(lang)
   const language = languageBadge(item.language, tr)
   const direction = SLIDE_DIRECTIONS[index % SLIDE_DIRECTIONS.length]
+  const title = lang === 'vi' ? item.titleVi ?? item.title : item.title
 
   return (
     <motion.div
@@ -111,28 +112,47 @@ export function MediaCard({
       )}
 
       <div
-        className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
-        style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 100%)' }}
+        className="absolute inset-x-0 bottom-0 h-20 pointer-events-none"
+        style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.65) 100%)' }}
       />
 
-      {/* Model + language — bottom, always visible */}
-      <div className="absolute bottom-0 left-0 right-0 px-2 py-1.5 flex items-center gap-1 flex-wrap">
-        <span
-          className="px-1.5 py-0.5 rounded text-[8px] font-mono uppercase tracking-[0.5px]"
-          style={{ background: 'rgba(255,255,255,0.12)', color: '#fff', backdropFilter: 'blur(2px)' }}
-        >
-          {item.model}
-        </span>
-        {language && (
+      {/* Brand/product + model + language — bottom, always visible */}
+      <div className="absolute bottom-0 left-0 right-0 px-2 py-1.5 flex flex-col gap-1">
+        {item.brand && (
+          <span
+            className="inline-flex items-center gap-1 self-start px-1.5 py-0.5 rounded text-[8px] font-mono uppercase tracking-[0.5px] font-bold"
+            style={{ background: 'var(--primary)', color: '#fff' }}
+          >
+            <Tag size={8} />
+            {item.brand}
+          </span>
+        )}
+        <div className="flex items-center gap-1 flex-wrap">
           <span
             className="px-1.5 py-0.5 rounded text-[8px] font-mono uppercase tracking-[0.5px]"
             style={{ background: 'rgba(255,255,255,0.12)', color: '#fff', backdropFilter: 'blur(2px)' }}
           >
-            {language}
+            {item.model}
           </span>
-        )}
+          {language && (
+            <span
+              className="px-1.5 py-0.5 rounded text-[8px] font-mono uppercase tracking-[0.5px]"
+              style={{ background: 'rgba(255,255,255,0.12)', color: '#fff', backdropFilter: 'blur(2px)' }}
+            >
+              {language}
+            </span>
+          )}
+        </div>
       </div>
     </motion.button>
+    {title && (
+      <p
+        className="px-1.5 pt-1.5 pb-0.5 text-[10px] leading-snug line-clamp-2"
+        style={{ color: 'var(--text-muted)' }}
+      >
+        {title}
+      </p>
+    )}
     </motion.div>
   )
 }
