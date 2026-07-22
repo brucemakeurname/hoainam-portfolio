@@ -19,7 +19,7 @@ export default function AboutPage() {
       <CareerTimeline />
       <section className="py-16 text-center" style={{ borderTop: '1px solid var(--card-border)' }}>
         <div className="flex items-center justify-center gap-4 flex-wrap">
-          <Link href="/portfolio" className="px-8 py-3 text-xs font-mono tracking-[2px] uppercase transition-all"
+          <Link href="/project" className="px-8 py-3 text-xs font-mono tracking-[2px] uppercase transition-all"
             style={{ background: 'var(--primary)', color: '#fff' }}>
             {tr.cta.viewPortfolio}
           </Link>
