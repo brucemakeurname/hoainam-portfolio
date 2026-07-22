@@ -95,7 +95,8 @@ const t = {
     creativeLibrary: {
       sectionLabel: '// Thư Viện Sáng Tạo',
       title: 'CREATIVE LIBRARY',
-      subtitle: 'Toàn bộ sản phẩm sáng tạo — từ thiết kế thủ công đến AI Generative, TVC đến UGC.',
+      subtitle:
+        '4 năm kinh nghiệm sáng tạo — từ thiết kế đồ hoạ thủ công (Photoshop, Illustrator) đến sản xuất nội dung bằng AI Generative. Thành thạo các mô hình AI phổ biến như GPT-Image-2, Veo 3.1, Gemini Omni và Kling để tạo ảnh quảng cáo, TVC và video UGC.',
       staticCreativeLabel: 'STATIC CREATIVE',
       videoLabel: 'VIDEO',
       handmadeLabel: 'Sản Phẩm Thủ Công',
@@ -201,7 +202,8 @@ const t = {
     creativeLibrary: {
       sectionLabel: '// Creative Library',
       title: 'CREATIVE LIBRARY',
-      subtitle: 'The full body of creative work — from hand-made design to AI Generative, TVC to UGC.',
+      subtitle:
+        '4 years of creative experience — from hand-made graphic design (Photoshop, Illustrator) to AI Generative content production. Fluent across popular AI models like GPT-Image-2, Veo 3.1, Gemini Omni, and Kling to produce ad creative, TVCs, and UGC video.',
       staticCreativeLabel: 'STATIC CREATIVE',
       videoLabel: 'VIDEO',
       handmadeLabel: 'Hand-made Creative',
