@@ -17,19 +17,24 @@ export function CreativeGallery({
   return (
     <div className="mb-12">
       <motion.div
-        className="flex items-center gap-2 mb-4"
+        className="mb-4"
         initial={{ opacity: 0, x: -8 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
       >
-        <span style={{ width: 3, height: 10, background: 'var(--primary)' }} />
-        <p
-          className="text-[9px] font-mono uppercase tracking-[3px]"
-          style={{ color: 'var(--text-muted)' }}
+        <span
+          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1"
+          style={{ border: '1px solid var(--card-border)', background: 'var(--surface)' }}
         >
-          {label}
-        </p>
+          <span className="rounded-full" style={{ width: 4, height: 4, background: 'var(--primary)' }} />
+          <span
+            className="text-[9px] font-mono uppercase tracking-[3px]"
+            style={{ color: 'var(--text-muted)' }}
+          >
+            {label}
+          </span>
+        </span>
       </motion.div>
       <div
         className={

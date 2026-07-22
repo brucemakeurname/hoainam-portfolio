@@ -27,19 +27,24 @@ export function MediaCard({
   const language = languageBadge(item.language, tr)
 
   return (
+    <motion.div
+      className="rounded-2xl p-1"
+      style={{ background: 'var(--surface)', border: '1px solid var(--card-border)' }}
+      initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, delay: Math.min(index, 12) * 0.04, ease: [0.32, 0.72, 0, 1] }}
+    >
     <motion.button
       onClick={onClick}
-      className="relative w-full overflow-hidden group text-left rounded-xl"
+      className="relative w-full overflow-hidden group text-left rounded-xl block"
       style={{
         aspectRatio: item.type === 'video' ? '9 / 16' : '1 / 1',
         border: '1px solid var(--card-border)',
         background: 'var(--card-bg)',
       }}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
       whileHover={{ scale: 0.97, borderColor: 'var(--primary)' }}
-      transition={{ duration: 0.35, delay: Math.min(index, 12) * 0.04, ease: 'easeOut' }}
+      transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
     >
       {item.type === 'image' ? (
         <Image
@@ -106,5 +111,6 @@ export function MediaCard({
         )}
       </div>
     </motion.button>
+    </motion.div>
   )
 }
