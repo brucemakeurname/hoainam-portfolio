@@ -6,6 +6,8 @@ export type CreativeItem = {
   caption: string
   captionVi: string
   model: string
+  duration?: string
+  language?: 'vi' | 'en' | 'none'
 }
 
 export const HANDMADE_CREATIVE: CreativeItem[] = [
@@ -79,6 +81,8 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     caption: "TVC-style commercial spot for 'Bé' produced with AI video generation.",
     captionVi: "TVC quảng cáo cho 'Bé' sản xuất bằng AI video.",
     model: 'Gemini Omni',
+    duration: '1:00',
+    language: 'en',
   },
   {
     id: 'commercial-coca-cola-tvc',
@@ -88,6 +92,8 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     caption: 'Coca-Cola style commercial concept spot generated end-to-end with AI video.',
     captionVi: 'TVC concept phong cách Coca-Cola được tạo hoàn toàn bằng AI video.',
     model: 'Gemini Omni',
+    duration: '1:00',
+    language: 'vi',
   },
   {
     id: 'commercial-ads-gentadox-nanoshield',
@@ -96,6 +102,8 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     caption: 'Gentadox Nanoshield product ad — commercial-style AI-generated spot.',
     captionVi: 'Quảng cáo sản phẩm Gentadox Nanoshield — video commercial do AI tạo.',
     model: 'Veo 3.1',
+    duration: '1:13',
+    language: 'vi',
   },
   {
     id: 'commercial-construction-timelapse',
@@ -104,6 +112,8 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     caption: 'AI-generated construction timelapse commercial concept.',
     captionVi: 'Clip timelapse công trình do AI tạo — commercial.',
     model: 'Veo 3.1',
+    duration: '0:24',
+    language: 'vi',
   },
 ]
 
@@ -115,6 +125,8 @@ export const UGC_VIDEOS: CreativeItem[] = [
     caption: 'Colgate UGC-style ad concept generated with AI video.',
     captionVi: 'Concept quảng cáo UGC cho Colgate do AI tạo.',
     model: 'Veo 3.1',
+    duration: '0:32',
+    language: 'vi',
   },
   {
     id: 'ugc-feb-04',
@@ -123,6 +135,8 @@ export const UGC_VIDEOS: CreativeItem[] = [
     caption: 'AI-generated UGC concept clip.',
     captionVi: 'Clip UGC concept do AI tạo.',
     model: 'Veo 3.1',
+    duration: '0:15',
+    language: 'en',
   },
   {
     id: 'ugc-mans-sweating',
@@ -131,6 +145,8 @@ export const UGC_VIDEOS: CreativeItem[] = [
     caption: 'AI-generated UGC lifestyle clip.',
     captionVi: 'Clip UGC lifestyle do AI tạo.',
     model: 'Veo 3.1',
+    duration: '0:08',
+    language: 'en',
   },
   {
     id: 'ugc-gucci-dress',
@@ -139,6 +155,8 @@ export const UGC_VIDEOS: CreativeItem[] = [
     caption: 'Gucci dress UGC-style fashion concept generated with AI video.',
     captionVi: 'Concept UGC thời trang váy Gucci do AI tạo.',
     model: 'Veo 3.1',
+    duration: '0:16',
+    language: 'vi',
   },
   {
     id: 'ugc-new-gym-experience',
@@ -147,6 +165,8 @@ export const UGC_VIDEOS: CreativeItem[] = [
     caption: 'New gym experience UGC concept clip.',
     captionVi: 'Clip UGC trải nghiệm phòng gym mới.',
     model: 'Omni',
+    duration: '0:20',
+    language: 'vi',
   },
   {
     id: 'ugc-kling-motion-control',
@@ -155,5 +175,7 @@ export const UGC_VIDEOS: CreativeItem[] = [
     caption: 'Motion-control UGC concept clip generated with Kling.',
     captionVi: 'Clip UGC motion-control tạo bằng Kling.',
     model: 'Kling',
+    duration: '0:15',
+    language: 'none',
   },
 ]

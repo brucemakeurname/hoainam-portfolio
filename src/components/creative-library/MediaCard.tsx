@@ -2,7 +2,16 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Play } from 'lucide-react'
+import { useLang } from '@/contexts/LanguageContext'
+import { useTranslations } from '@/lib/translations'
 import type { CreativeItem } from '@/lib/creativeLibrary'
+
+function languageBadge(language: CreativeItem['language'], tr: ReturnType<typeof useTranslations>) {
+  if (language === 'vi') return tr.creativeLibrary.languageVi
+  if (language === 'en') return tr.creativeLibrary.languageEn
+  if (language === 'none') return tr.creativeLibrary.languageNone
+  return null
+}
 
 export function MediaCard({
   item,
@@ -13,6 +22,10 @@ export function MediaCard({
   onClick: () => void
   index?: number
 }) {
+  const { lang } = useLang()
+  const tr = useTranslations(lang)
+  const language = languageBadge(item.language, tr)
+
   return (
     <motion.button
       onClick={onClick}
@@ -59,15 +72,38 @@ export function MediaCard({
           </div>
         </>
       )}
+
+      {/* Duration — top-right corner */}
+      {item.duration && (
+        <div
+          className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[8px] font-mono tracking-[0.5px]"
+          style={{ background: 'rgba(0,0,0,0.6)', color: '#fff', backdropFilter: 'blur(2px)' }}
+        >
+          {item.duration}
+        </div>
+      )}
+
       <div
-        className="absolute inset-x-0 bottom-0 h-14 pointer-events-none"
-        style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.55) 100%)' }}
+        className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
+        style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 100%)' }}
       />
-      <div
-        className="absolute bottom-0 left-0 right-0 px-2.5 py-1.5 text-[9px] font-mono uppercase tracking-[1px] opacity-0 group-hover:opacity-100 transition-opacity"
-        style={{ color: '#fff' }}
-      >
-        {item.model}
+
+      {/* Model + language — bottom, always visible */}
+      <div className="absolute bottom-0 left-0 right-0 px-2 py-1.5 flex items-center gap-1 flex-wrap">
+        <span
+          className="px-1.5 py-0.5 rounded text-[8px] font-mono uppercase tracking-[0.5px]"
+          style={{ background: 'rgba(255,255,255,0.12)', color: '#fff', backdropFilter: 'blur(2px)' }}
+        >
+          {item.model}
+        </span>
+        {language && (
+          <span
+            className="px-1.5 py-0.5 rounded text-[8px] font-mono uppercase tracking-[0.5px]"
+            style={{ background: 'rgba(255,255,255,0.12)', color: '#fff', backdropFilter: 'blur(2px)' }}
+          >
+            {language}
+          </span>
+        )}
       </div>
     </motion.button>
   )

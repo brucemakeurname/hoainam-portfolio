@@ -6,9 +6,17 @@ import { useLang } from '@/contexts/LanguageContext'
 import { useTranslations } from '@/lib/translations'
 import type { CreativeItem } from '@/lib/creativeLibrary'
 
+function languageLabel(language: CreativeItem['language'], tr: ReturnType<typeof useTranslations>) {
+  if (language === 'vi') return tr.creativeLibrary.languageVi
+  if (language === 'en') return tr.creativeLibrary.languageEn
+  if (language === 'none') return tr.creativeLibrary.languageNone
+  return null
+}
+
 export function SingleView({ item, onClose }: { item: CreativeItem | null; onClose: () => void }) {
   const { lang } = useLang()
   const tr = useTranslations(lang)
+  const language = item ? languageLabel(item.language, tr) : null
 
   return (
     <AnimatePresence>
@@ -68,6 +76,23 @@ export function SingleView({ item, onClose }: { item: CreativeItem | null; onClo
               </div>
 
               <p className="text-sm font-bold" style={{ color: 'var(--text)' }}>{item.model}</p>
+
+              {(item.duration || language) && (
+                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs" style={{ color: 'var(--text-muted)' }}>
+                  {item.duration && (
+                    <span>
+                      <span className="font-mono uppercase tracking-[1px]" style={{ fontSize: 9, color: 'var(--primary)' }}>{tr.creativeLibrary.durationLabel}</span>{' '}
+                      {item.duration}
+                    </span>
+                  )}
+                  {language && (
+                    <span>
+                      <span className="font-mono uppercase tracking-[1px]" style={{ fontSize: 9, color: 'var(--primary)' }}>{tr.creativeLibrary.languageLabel}</span>{' '}
+                      {language}
+                    </span>
+                  )}
+                </div>
+              )}
 
               <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                 {lang === 'vi' ? item.captionVi : item.caption}

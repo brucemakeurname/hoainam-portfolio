@@ -32,7 +32,7 @@ export default function CreativeLibraryPage() {
         <h1 className="text-3xl font-black chroma" style={{ color: 'var(--text)' }}>
           {tr.creativeLibrary.title}
         </h1>
-        <p className="text-sm mt-2 max-w-2xl leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+        <p className="text-sm mt-2 leading-relaxed" style={{ color: 'var(--text-muted)' }}>
           {tr.creativeLibrary.subtitle}
         </p>
       </motion.div>
