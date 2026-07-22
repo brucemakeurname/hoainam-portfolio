@@ -8,6 +8,7 @@ export type CreativeItem = {
   model: string
   duration?: string
   language?: 'vi' | 'en' | 'fil' | 'none'
+  rating?: number
 }
 
 export const HANDMADE_CREATIVE: CreativeItem[] = [
@@ -83,6 +84,7 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     model: 'Gemini Omni',
     duration: '1:00',
     language: 'en',
+    rating: 5,
   },
   {
     id: 'commercial-coca-cola-tvc',
@@ -94,6 +96,7 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     model: 'Gemini Omni',
     duration: '1:00',
     language: 'vi',
+    rating: 4,
   },
   {
     id: 'commercial-ads-gentadox-nanoshield',
@@ -104,6 +107,7 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     model: 'Veo 3.1',
     duration: '1:13',
     language: 'fil',
+    rating: 5,
   },
   {
     id: 'commercial-construction-timelapse',
@@ -114,6 +118,7 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     model: 'Veo 3.1',
     duration: '0:24',
     language: 'vi',
+    rating: 3,
   },
 ]
 
@@ -127,6 +132,7 @@ export const UGC_VIDEOS: CreativeItem[] = [
     model: 'Veo 3.1',
     duration: '0:32',
     language: 'vi',
+    rating: 4,
   },
   {
     id: 'ugc-feb-04',
@@ -137,6 +143,7 @@ export const UGC_VIDEOS: CreativeItem[] = [
     model: 'Veo 3.1',
     duration: '0:15',
     language: 'en',
+    rating: 3,
   },
   {
     id: 'ugc-mans-sweating',
@@ -147,6 +154,7 @@ export const UGC_VIDEOS: CreativeItem[] = [
     model: 'Veo 3.1',
     duration: '0:08',
     language: 'en',
+    rating: 3,
   },
   {
     id: 'ugc-gucci-dress',
@@ -157,6 +165,7 @@ export const UGC_VIDEOS: CreativeItem[] = [
     model: 'Veo 3.1',
     duration: '0:16',
     language: 'vi',
+    rating: 5,
   },
   {
     id: 'ugc-new-gym-experience',
@@ -167,6 +176,7 @@ export const UGC_VIDEOS: CreativeItem[] = [
     model: 'Omni',
     duration: '0:20',
     language: 'vi',
+    rating: 5,
   },
   {
     id: 'ugc-kling-motion-control',
@@ -177,5 +187,6 @@ export const UGC_VIDEOS: CreativeItem[] = [
     model: 'Kling',
     duration: '0:15',
     language: 'none',
+    rating: 4,
   },
 ]

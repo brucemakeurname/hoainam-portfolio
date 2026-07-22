@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
-import { X, Heart, MessageCircle, Send } from 'lucide-react'
+import { X, Heart, MessageCircle, Send, Star } from 'lucide-react'
 import { useLang } from '@/contexts/LanguageContext'
 import { useTranslations } from '@/lib/translations'
 import type { CreativeItem } from '@/lib/creativeLibrary'
@@ -77,6 +77,14 @@ export function SingleView({ item, onClose }: { item: CreativeItem | null; onClo
               </div>
 
               <p className="text-sm font-bold" style={{ color: 'var(--text)' }}>{item.model}</p>
+
+              {item.rating && (
+                <div className="flex items-center gap-0.5">
+                  {Array.from({ length: item.rating }).map((_, i) => (
+                    <Star key={i} size={12} color="#FBBF24" fill="#FBBF24" />
+                  ))}
+                </div>
+              )}
 
               {(item.duration || language) && (
                 <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs" style={{ color: 'var(--text-muted)' }}>

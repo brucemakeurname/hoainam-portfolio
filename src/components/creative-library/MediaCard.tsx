@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Play } from 'lucide-react'
+import { Play, Star } from 'lucide-react'
 import { useLang } from '@/contexts/LanguageContext'
 import { useTranslations } from '@/lib/translations'
 import type { CreativeItem } from '@/lib/creativeLibrary'
@@ -86,6 +86,18 @@ export function MediaCard({
             </div>
           </div>
         </>
+      )}
+
+      {/* Rating — top-left corner */}
+      {item.rating && (
+        <div
+          className="absolute top-1.5 left-1.5 flex items-center gap-[1px] px-1.5 py-0.5 rounded"
+          style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(2px)' }}
+        >
+          {Array.from({ length: item.rating }).map((_, i) => (
+            <Star key={i} size={8} color="#FBBF24" fill="#FBBF24" />
+          ))}
+        </div>
       )}
 
       {/* Duration — top-right corner */}
