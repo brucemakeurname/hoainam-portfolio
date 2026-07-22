@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useLang } from '@/contexts/LanguageContext'
 import { useTranslations } from '@/lib/translations'
@@ -32,6 +33,23 @@ export default function CreativeLibraryPage() {
 
   return (
     <div className="relative pt-20 pb-16 overflow-hidden grid-bg" style={{ background: 'var(--bg)' }}>
+      {/* Feature banner — generated with Codex CLI image_gen */}
+      <div className="absolute top-0 left-0 right-0 h-[420px] pointer-events-none -z-20" aria-hidden="true">
+        <Image
+          src="/images/creative/feature-hero.png"
+          alt=""
+          fill
+          className="object-cover"
+          style={{ opacity: 0.55 }}
+          unoptimized
+          priority
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(180deg, rgba(6,6,14,0.2) 0%, var(--bg) 100%)' }}
+        />
+      </div>
+
       {/* Hero-style ambient background — same treatment as the About page hero */}
       <div
         className="absolute inset-0 pointer-events-none -z-10"
