@@ -31,8 +31,19 @@ export function SingleView({ item, onClose }: { item: CreativeItem | null; onClo
           exit={{ opacity: 0 }}
           onClick={onClose}
         >
+          {/* Floating close — always reachable without scrolling, especially on mobile
+              where the media (9:16 video) can push the caption/close far down. */}
+          <button
+            onClick={onClose}
+            aria-label={tr.creativeLibrary.close}
+            className="fixed top-4 right-4 z-[110] flex items-center justify-center rounded-full"
+            style={{ width: 36, height: 36, background: 'rgba(0,0,0,0.6)', color: '#fff', backdropFilter: 'blur(4px)' }}
+          >
+            <X size={18} />
+          </button>
+
           <motion.div
-            className="flex flex-col md:flex-row w-full max-w-4xl max-h-full overflow-hidden rounded-2xl"
+            className="flex flex-col md:flex-row w-full max-w-4xl max-h-full overflow-y-auto md:overflow-hidden rounded-2xl"
             style={{ background: 'var(--bg)', border: '1px solid var(--card-border)' }}
             initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -68,14 +79,9 @@ export function SingleView({ item, onClose }: { item: CreativeItem | null; onClo
 
             {/* Caption column */}
             <div className="w-full md:w-[280px] shrink-0 p-5 flex flex-col gap-5" style={{ borderLeft: '1px solid var(--card-border)' }}>
-              <div className="flex items-center justify-between">
-                <p className="text-[9px] font-mono uppercase tracking-[3px]" style={{ color: 'var(--primary)' }}>
-                  {tr.creativeLibrary.modelLabel}
-                </p>
-                <button onClick={onClose} aria-label={tr.creativeLibrary.close} style={{ color: 'var(--text-muted)' }}>
-                  <X size={16} />
-                </button>
-              </div>
+              <p className="text-[9px] font-mono uppercase tracking-[3px]" style={{ color: 'var(--primary)' }}>
+                {tr.creativeLibrary.modelLabel}
+              </p>
 
               {item.brand && (
                 <span
