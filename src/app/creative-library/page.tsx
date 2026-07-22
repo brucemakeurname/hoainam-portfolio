@@ -5,6 +5,7 @@ import { useLang } from '@/contexts/LanguageContext'
 import { useTranslations } from '@/lib/translations'
 import { CreativeGallery } from '@/components/creative-library/CreativeGallery'
 import { SingleView } from '@/components/creative-library/SingleView'
+import { GlowPanel } from '@/components/ui/GlowPanel'
 import {
   HANDMADE_CREATIVE,
   AI_GENERATIVE,
@@ -13,40 +14,32 @@ import {
   type CreativeItem,
 } from '@/lib/creativeLibrary'
 
+const CENTER_DOTS = [
+  { top: '8%', offset: -18, accent: false },
+  { top: '16%', offset: 14, accent: true },
+  { top: '28%', offset: -10, accent: false },
+  { top: '42%', offset: 20, accent: false },
+  { top: '55%', offset: -16, accent: true },
+  { top: '68%', offset: 10, accent: false },
+  { top: '80%', offset: -12, accent: false },
+  { top: '92%', offset: 16, accent: true },
+]
+
 export default function CreativeLibraryPage() {
   const { lang } = useLang()
   const tr = useTranslations(lang)
   const [selected, setSelected] = useState<CreativeItem | null>(null)
 
   return (
-    <div className="relative pt-20 pb-16 overflow-hidden" style={{ background: 'var(--bg)' }}>
-      {/* Ambient glow field — Ethereal Glass background */}
-      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 640,
-            height: 640,
-            top: -220,
-            left: -120,
-            background: 'radial-gradient(circle, var(--primary) 0%, transparent 70%)',
-            opacity: 0.24,
-            filter: 'blur(90px)',
-          }}
-        />
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 520,
-            height: 520,
-            top: 260,
-            right: -160,
-            background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
-            opacity: 0.12,
-            filter: 'blur(100px)',
-          }}
-        />
-      </div>
+    <div className="relative pt-20 pb-16 overflow-hidden grid-bg" style={{ background: 'var(--bg)' }}>
+      {/* Hero-style ambient background — same treatment as the About page hero */}
+      <div
+        className="absolute inset-0 pointer-events-none -z-10"
+        style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(31,127,254,0.14) 0%, transparent 70%)' }}
+        aria-hidden="true"
+      />
+      <GlowPanel side="left" />
+      <GlowPanel side="right" />
 
       <motion.div
         className="px-14 mb-10"
@@ -80,27 +73,62 @@ export default function CreativeLibraryPage() {
         </div>
       </motion.div>
 
-      <div
-        className="px-14 grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-12 items-start"
-        style={{ borderTop: '1px solid var(--card-border)', paddingTop: '2.5rem' }}
-      >
-        <div
-          className="lg:pr-6"
-          style={{ borderRight: '1px solid transparent', borderImage: 'linear-gradient(180deg, var(--card-border), transparent) 1' }}
-        >
-          <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text)' }}>
-            {tr.creativeLibrary.staticCreativeLabel}
-          </h2>
-          <CreativeGallery label={tr.creativeLibrary.handmadeLabel} items={HANDMADE_CREATIVE} onSelect={setSelected} />
-          <CreativeGallery label={tr.creativeLibrary.aiGenerativeLabel} items={AI_GENERATIVE} onSelect={setSelected} />
+      <div className="relative">
+        {/* Center divider glow + scattered dots — same accent language as the About hero */}
+        <div className="hidden lg:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-px pointer-events-none -z-10" aria-hidden="true">
+          <div
+            className="absolute rounded-full"
+            style={{
+              width: 360,
+              height: 360,
+              top: '30%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              background: 'radial-gradient(circle, var(--primary) 0%, transparent 70%)',
+              opacity: 0.22,
+              filter: 'blur(70px)',
+            }}
+          />
+          {CENTER_DOTS.map((dot, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: 5,
+                height: 5,
+                top: dot.top,
+                left: `calc(50% + ${dot.offset}px)`,
+                background: dot.accent ? 'var(--accent)' : 'var(--primary)',
+                boxShadow: dot.accent ? '0 0 10px var(--accent)' : '0 0 10px var(--primary)',
+              }}
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 2.4 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          ))}
         </div>
 
-        <div>
-          <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text)' }}>
-            {tr.creativeLibrary.videoLabel}
-          </h2>
-          <CreativeGallery label={tr.creativeLibrary.ugcLabel} items={UGC_VIDEOS} onSelect={setSelected} />
-          <CreativeGallery label={tr.creativeLibrary.commercialLabel} items={COMMERCIAL_VIDEOS} onSelect={setSelected} />
+        <div
+          className="px-14 grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-x-10 gap-y-12 items-start"
+          style={{ borderTop: '1px solid var(--card-border)', paddingTop: '2.5rem' }}
+        >
+          <div
+            className="lg:pr-6"
+            style={{ borderRight: '1px solid transparent', borderImage: 'linear-gradient(180deg, var(--card-border), transparent) 1' }}
+          >
+            <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text)' }}>
+              {tr.creativeLibrary.staticCreativeLabel}
+            </h2>
+            <CreativeGallery label={tr.creativeLibrary.aiGenerativeLabel} items={AI_GENERATIVE} onSelect={setSelected} />
+            <CreativeGallery label={tr.creativeLibrary.handmadeLabel} items={HANDMADE_CREATIVE} onSelect={setSelected} />
+          </div>
+
+          <div>
+            <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text)' }}>
+              {tr.creativeLibrary.videoLabel}
+            </h2>
+            <CreativeGallery label={tr.creativeLibrary.ugcLabel} items={UGC_VIDEOS} onSelect={setSelected} />
+            <CreativeGallery label={tr.creativeLibrary.commercialLabel} items={COMMERCIAL_VIDEOS} onSelect={setSelected} />
+          </div>
         </div>
       </div>
 

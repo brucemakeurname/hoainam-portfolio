@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Sun, Moon } from 'lucide-react'
@@ -33,8 +34,13 @@ export function Navigation() {
       style={{ background: 'var(--nav-bg)', backdropFilter: 'blur(8px)' }}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="text-sm font-bold tracking-[4px]" style={{ color: 'var(--text)' }}>
-          HN<span style={{ color: 'var(--accent)' }}>.</span>
+        <Link
+          href="/"
+          className="rounded-full overflow-hidden shrink-0"
+          style={{ width: 36, height: 36, border: '1px solid var(--card-border)' }}
+          aria-label="Nguyễn Hoài Nam"
+        >
+          <Image src="/images/avatar.jpg" alt="Nguyễn Hoài Nam" width={36} height={36} className="w-full h-full object-cover" unoptimized />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

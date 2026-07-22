@@ -9,9 +9,18 @@ import type { CreativeItem } from '@/lib/creativeLibrary'
 function languageBadge(language: CreativeItem['language'], tr: ReturnType<typeof useTranslations>) {
   if (language === 'vi') return tr.creativeLibrary.languageVi
   if (language === 'en') return tr.creativeLibrary.languageEn
+  if (language === 'fil') return tr.creativeLibrary.languageFil
   if (language === 'none') return tr.creativeLibrary.languageNone
   return null
 }
+
+// Cycled by index so any 4 consecutive cards never repeat a slide-in direction.
+const SLIDE_DIRECTIONS = [
+  { x: -28, y: 0 },
+  { x: 0, y: -28 },
+  { x: 28, y: 0 },
+  { x: 0, y: 28 },
+]
 
 export function MediaCard({
   item,
@@ -25,15 +34,16 @@ export function MediaCard({
   const { lang } = useLang()
   const tr = useTranslations(lang)
   const language = languageBadge(item.language, tr)
+  const direction = SLIDE_DIRECTIONS[index % SLIDE_DIRECTIONS.length]
 
   return (
     <motion.div
       className="rounded-2xl p-1"
       style={{ background: 'var(--surface)', border: '1px solid var(--card-border)' }}
-      initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={{ opacity: 0, x: direction.x, y: direction.y, filter: 'blur(6px)' }}
+      whileInView={{ opacity: 1, x: 0, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, delay: Math.min(index, 12) * 0.04, ease: [0.32, 0.72, 0, 1] }}
+      transition={{ duration: 1, delay: Math.min(index, 12) * 0.04, ease: [0.32, 0.72, 0, 1] }}
     >
     <motion.button
       onClick={onClick}

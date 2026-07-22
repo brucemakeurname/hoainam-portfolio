@@ -7,7 +7,7 @@ export type CreativeItem = {
   captionVi: string
   model: string
   duration?: string
-  language?: 'vi' | 'en' | 'none'
+  language?: 'vi' | 'en' | 'fil' | 'none'
 }
 
 export const HANDMADE_CREATIVE: CreativeItem[] = [
@@ -103,7 +103,7 @@ export const COMMERCIAL_VIDEOS: CreativeItem[] = [
     captionVi: 'Quảng cáo sản phẩm Gentadox Nanoshield — video commercial do AI tạo.',
     model: 'Veo 3.1',
     duration: '1:13',
-    language: 'vi',
+    language: 'fil',
   },
   {
     id: 'commercial-construction-timelapse',

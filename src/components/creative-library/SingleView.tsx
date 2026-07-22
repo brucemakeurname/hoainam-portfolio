@@ -9,6 +9,7 @@ import type { CreativeItem } from '@/lib/creativeLibrary'
 function languageLabel(language: CreativeItem['language'], tr: ReturnType<typeof useTranslations>) {
   if (language === 'vi') return tr.creativeLibrary.languageVi
   if (language === 'en') return tr.creativeLibrary.languageEn
+  if (language === 'fil') return tr.creativeLibrary.languageFil
   if (language === 'none') return tr.creativeLibrary.languageNone
   return null
 }

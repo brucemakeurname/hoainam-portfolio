@@ -39,7 +39,7 @@ export function CreativeGallery({
       <div
         className={
           isVideo
-            ? 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2.5'
+            ? 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2.5'
             : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3'
         }
       >
