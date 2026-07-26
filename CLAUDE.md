@@ -53,9 +53,9 @@ src/
 │   │   └── Navigation.tsx      # Navbar: avatar tròn làm logo, VIE/ENG toggle, Sun/Moon toggle, nav links, hamburger menu mobile (md:hidden)
 │   ├── home/
 │   │   ├── Hero.tsx            # Hero section: avatar, tên, title, social buttons, email+phone
-│   │   ├── StatsBar.tsx        # 6 animated counters
+│   │   ├── StatsBar.tsx        # 5 animated counters, hỗ trợ optional detail/detailVi (text nhỏ dưới label, dùng cho marketingNiches)
 │   │   ├── SkillDimensions.tsx # 6 skill cards với Lucide icons, expandable
-│   │   └── CareerTimeline.tsx  # Timeline 2020→2025→ (data đã sort newest-first trong data.ts)
+│   │   └── CareerTimeline.tsx  # Timeline 2020→2025→ (data đã sort newest-first trong data.ts). Entry "2025 →" hiện title "Solo Flows — Founder & AI Marketing Automation Executive", description nói về Desk, quản lý 4 AI Influencer, Multi-AI Agent Orchestration System cho Creative Media Pipeline (OpenClaw + Claude Code + Veo3/Gemini Omni/Seedance/Nano Banana Pro/GPT-Image-2)
 │   ├── portfolio/
 │   │   ├── SoloFlowsEcosystem.tsx # Featured: 3 pillar cards, mỗi card có image slideshow (maxHeight 300px)
 │   │   ├── ProjectExplorer.tsx    # 3-col explorer: sidetab(180px) / image-flex-1 / info(260px)
@@ -110,7 +110,7 @@ export function MyComponent() {
 ```
 tr.nav.{about, portfolio, creativeLibrary, soloFlows, contact}   # portfolio label = "Project"/"Dự Án" (route đã đổi, key giữ nguyên tên cũ)
 tr.hero.{role, tagline, downloadCv, email, phone, scrollHint}
-tr.stats.{yearsAI, agentsBuilt, platforms, designProjects, growth, tests}
+tr.stats.{yearsAI, aiInfluencerBrand, techOPC, marketingNiches, growth}
 tr.skills.{sectionLabel, categories.{ai-agents, prompt-eng, platform, content, design, business}}
 tr.timeline.{sectionLabel}
 tr.cta.{viewPortfolio, exploreSF}
@@ -203,20 +203,22 @@ soloflows: 'https://soloflows.com'
 ### INFLUENCERS (4 AI personas của Solo Flows)
 | Name | Role | Avatar |
 |------|------|--------|
-| Bruce | AI Co-Founder & Tech Creator | `/images/bruce.png` |
-| Mylara Vey | Digital Musician & Artist | `/images/mylara.jpg` |
-| Chú Sáu | Fitness & Lifestyle Expert | `null` (hiển thị initial) |
-| Khánh Huyền | Fashion & Lifestyle Icon | `null` (hiển thị initial) |
+| Bruce | AI Co-Founder & Tech Creator | `/images/soloflows/bruce.jpg` |
+| Mylara Vey | Digital Musician & Artist | `/images/soloflows/mylara.jpg` |
+| Chú Sáu | Fitness & Lifestyle Expert | `/images/soloflows/chu-sau.jpg` |
+| Khánh Huyền | Fashion & Lifestyle Icon | `/images/soloflows/khanh-huyen.jpg` |
 
-### STATS
+Toàn bộ ảnh crawl thật từ soloflows.com (xem section Solo Flows brand palette bên dưới).
+
+### STATS (About page)
 ```ts
 { value: 4, suffix: '+', labelKey: 'yearsAI' }
-{ value: 10, suffix: '', labelKey: 'agentsBuilt' }
-{ value: 6, suffix: '', labelKey: 'platforms' }
-{ value: 44, suffix: '', labelKey: 'designProjects' }
+{ value: 4, suffix: '', labelKey: 'aiInfluencerBrand' }
+{ value: 1, suffix: '', labelKey: 'techOPC' }
+{ value: 4, suffix: '', labelKey: 'marketingNiches', detail: 'Architecture & Interior / Education / Legal / E-commerce', detailVi: 'Kiến Trúc & Nội Thất / Giáo Dục / Pháp Lý / TMĐT' }
 { value: 603, suffix: '%', labelKey: 'growth' }
-{ value: 711, suffix: '', labelKey: 'tests' }
 ```
+Đã bỏ các số liệu vô nghĩa/lỗi thời (10 agents, 6 platforms, 44 design projects, 711 tests). `detail`/`detailVi` là optional field hiện text nhỏ dưới label (dùng cho marketingNiches) — xem `StatsBar.tsx`.
 
 ---
 
@@ -226,8 +228,13 @@ soloflows: 'https://soloflows.com'
 public/
 ├── images/
 │   ├── avatar.jpg              # Ảnh đại diện Nam — Hero circle + favicon (metadata.icons trong layout.tsx) + logo tròn trong Navigation
-│   ├── bruce.png               # Influencer Bruce (cần thêm nếu chưa có)
-│   ├── mylara.jpg              # Influencer Mylara (cần thêm nếu chưa có)
+│   ├── soloflows/               # Ảnh crawl thật từ soloflows.com — xem section Solo Flows brand palette
+│   │   ├── bruce.jpg               → influencer avatar
+│   │   ├── mylara.jpg              → influencer avatar
+│   │   ├── chu-sau.jpg             → influencer avatar
+│   │   ├── khanh-huyen.jpg         → influencer avatar
+│   │   ├── desk-preview.jpg        → pillar: platform (screenshot nền tảng Desk)
+│   │   └── hero-banner.jpg         → pillar: platform
 │   ├── gece/
 │   │   ├── 1.png
 │   │   ├── tot nghiep ko so that nghiep.png
@@ -240,10 +247,6 @@ public/
 │   │   ├── sf-multichannel.jpg     → project: social-automation
 │   │   ├── make-workflow.png       → project: asl-automation
 │   │   ├── gece-crm.jpg            → project: gece-crm
-│   │   ├── sf-platform-hero.png    → pillar: platform (SoloFlowsEcosystem)
-│   │   ├── sf-booking.png          → pillar: platform
-│   │   ├── sf-newfeed.png          → pillar: platform
-│   │   ├── sf-explore.png          → pillar: platform
 │   │   ├── sf-agents-log.jpg       → pillar: agents
 │   │   ├── sf-agents-discord.jpg   → pillar: agents
 │   │   └── sf-chatbot.png          → pillar: cs
@@ -251,7 +254,7 @@ public/
 │       ├── fnb-promotion-poster.jpg        # AI Generative image
 │       ├── cellphones-promotion-ads.jpg    # AI Generative image
 │       ├── feature-hero.png                # Banner hero — tạo bằng Codex CLI image_gen, chỉ hiện md+ (ẩn trên mobile)
-│       └── *-poster.jpg                    # Poster frame cho từng video (10 file, xem section Creative Library)
+│       └── *-poster.jpg                    # Poster frame cho từng video (12 file, xem section Creative Library)
 └── cv/
     └── CV-Nguyen-Hoai-Nam-2026.pdf   # CHƯA có — cần export và commit
 ```
@@ -266,12 +269,13 @@ Video gốc cho Creative Library (chưa rename, chưa upload) nằm tại: `liba
 
 ### Ưu tiên cao
 - [ ] **CV PDF:** Export file DOCX → PDF, đặt vào `public/cv/CV-Nguyen-Hoai-Nam-2026.pdf`, commit & push
-- [ ] **Avatar influencers:** Thêm ảnh `public/images/bruce.png` và `public/images/mylara.jpg` nếu chưa có
 - [ ] **Domain:** Verify `hoainam.com.vn` đã trỏ đúng về Vercel
 
 ### Ưu tiên trung bình
-- [x] **Avatar Chú Sáu & Khánh Huyền:** ~~Hiện đang hiển thị initial letter~~ — đã crawl ảnh thật từ soloflows.com vào `public/images/soloflows/`
+- [x] **Avatar 4 influencer (Bruce/Mylara/Chú Sáu/Khánh Huyền):** ~~thiếu ảnh, hiện initial letter~~ — đã crawl ảnh thật từ soloflows.com vào `public/images/soloflows/`
 - [x] **Mobile nav:** ~~Navigation chưa có mobile menu~~ — đã thêm hamburger toggle (`Navigation.tsx`), xem git history
+- [x] **Solo Flows content chính xác:** ~~mô tả Platform pillar nhầm sang B.A.I~~ — đã crawl lại đúng 3 sản phẩm thật (Desk/B.A.I/Newsfeed), xem section Solo Flows brand palette
+- [x] **Solo Flows dark mode:** ~~page hardcode 1 theme sáng~~ — đã thêm variant dark theo toggle sáng/tối của site
 - [ ] **SEO metadata:** `project/page.tsx`, `creative-library/page.tsx` và `solo-flows/page.tsx` đã bỏ `metadata` export (vì `'use client'`) — cần tách metadata ra file riêng nếu cần SEO
 - [ ] **OG image:** Thêm open graph image để share đẹp trên social
 
@@ -361,13 +365,16 @@ Danh sách 6 projects hiện tại (thứ tự = thứ tự sidetab):
 
 ### Solo Flows brand palette (`/solo-flows` page only)
 
-Trang `/solo-flows` dùng bảng màu thương hiệu thật của Solo Flows (crawl từ soloflows.com), khác với theme dark blue/lime của phần còn lại của portfolio. Áp dụng qua object `SOLOFLOWS_THEME` (inline CSS custom properties) trên div gốc của `src/app/solo-flows/page.tsx` — override `--bg/--text/--text-muted/--primary/--accent/--surface/--card-bg/--card-border` chỉ trong phạm vi page này (Navigation ở ngoài div nên không bị ảnh hưởng, vẫn theo theme sáng/tối của site chính):
+Trang `/solo-flows` dùng bảng màu thương hiệu thật của Solo Flows (crawl từ soloflows.com), khác với theme dark blue/lime của phần còn lại của portfolio. Áp dụng qua 2 object `SOLOFLOWS_LIGHT` / `SOLOFLOWS_DARK` (inline CSS custom properties) trên div gốc của `src/app/solo-flows/page.tsx` — override `--bg/--text/--text-muted/--primary/--accent/--surface/--card-bg/--card-border` chỉ trong phạm vi page này (Navigation ở ngoài div nên không bị ảnh hưởng, luôn theo theme site chính):
 ```
---bg: #FFFAF5 (cream)  --text: #00003D (navy)  --primary: #FFBF00 (gold)  --accent: #2576F8 (blue)
+LIGHT: --bg: #FFFAF5 (cream)   --text: #00003D (navy)      --primary: #FFBF00 (gold)  --accent: #2576F8 (blue)
+DARK:  --bg: #0A0A24 (navy)    --text: #FFFAF5 (cream)     --primary: #FFBF00 (gold)  --accent: #4F93FF (blue, sáng hơn cho dark)
 ```
+Page tự đọc theme hiện tại của site qua `useTheme()` (next-themes) + `mounted` state (tránh hydration mismatch, pattern giống Navigation.tsx) rồi chọn palette tương ứng — **không** có nút toggle riêng, dùng chung Sun/Moon toggle trong Navigation.
+
 Ảnh thật (avatar 4 influencer, ảnh nền tảng Desk, hero banner) đã crawl về `public/images/soloflows/`.
 
-Trang này **không** hiển thị mô hình doanh thu (đã bỏ `RevenueModel.tsx` + `REVENUE_STREAMS`) vì là trang giới thiệu công khai.
+Trang này **không** hiển thị mô hình doanh thu (đã bỏ `RevenueModel.tsx` + `REVENUE_STREAMS`) vì là trang giới thiệu công khai. Nội dung pillar "Platform" mô tả đúng soloflows.com là hệ sinh thái AI Marketing Agency gồm 3 sản phẩm thật (crawl từ `/services/desk`, `/services/booking-ai-influencer`, `/services/ai-agentic-installation`): **Desk** (content subscription chat-first), **B.A.I** (đặt lịch AI Influencer), **Newsfeed** (nội dung liên tục) — không mô tả gộp nhầm thành riêng B.A.I như trước. Pillar "AI Agent System" và "Platform" không còn hiện box Metrics (đã xoá số liệu nội bộ như 711 tests/64 routes/10 agents — cùng lý do không lộ vận hành nội bộ trên trang public).
 
 ---
 
@@ -395,8 +402,10 @@ type CreativeItem = {
 export const HANDMADE_CREATIVE   // 5 ảnh GECE (dùng lại GECE_IMAGES path), brand: 'GECE Group'
 export const AI_GENERATIVE       // 2 ảnh AI-generated, model: 'GPT-Image-2'
 export const COMMERCIAL_VIDEOS   // 4 video — sắp xếp theo rating giảm dần
-export const UGC_VIDEOS          // 6 video — sắp xếp theo rating giảm dần
+export const UGC_VIDEOS          // 8 video — sắp xếp theo rating giảm dần
 ```
+
+UGC hiển thị **paginated** trên desktop (`CreativeGallery` prop `paginate perPage={5} autoSlideMs={10000}`): 1 hàng, 5 video/trang, nút prev/next + page dots dưới hàng, tự động chuyển trang. Mobile vẫn giữ carousel auto-scroll như cũ (không paginate).
 
 **Khi thêm/sửa item:** luôn set `poster` (không dựa vào browser tự render frame đầu — lỗi phổ biến trên mobile), và nhớ cập nhật cả `title`/`titleVi` để card có context mà không cần click.
 
@@ -436,7 +445,7 @@ Video quá nặng (tổng ~250MB, 1 file 102MB) để commit vào git/serve từ
 
 ### SingleView (modal chi tiết kiểu Instagram)
 - Layout: `flex-col md:flex-row` — media trên, caption panel dưới (mobile) / media trái, caption phải (desktop)
-- **Floating close button** (`fixed top-4 right-4`, ngoài card) — bắt buộc phải có, vì trên mobile media 9:16 rất cao, nút X trong caption panel bị đẩy xuống rất xa nếu không có nút nổi riêng
+- **Floating close button** (`fixed top-4`, ngoài card) — bắt buộc phải có, vì trên mobile media 9:16 rất cao, nút X trong caption panel bị đẩy xuống rất xa nếu không có nút nổi riêng. Vị trí lệch theo breakpoint: `left-4` trên mobile (tránh đè lên nút mute/fullscreen mặc định của `<video controls>` ở góc trên-phải), `md:right-4` trên desktop
 - Caption panel hiện: brand badge → title → model → rating (sao) → duration/language → caption đầy đủ → icon like/comment/send (chỉ trang trí, KHÔNG có logic thật)
 - Video autoplay + muted + loop + `controls`; poster attribute dùng chung field với MediaCard
 
@@ -448,6 +457,15 @@ Video quá nặng (tổng ~250MB, 1 file 102MB) để commit vào git/serve từ
 ## Git History
 
 ```
+ac6ff43  feat: add dark mode to /solo-flows, fix inaccurate Platform description
+1a72dda  fix: strip remaining stale internal metrics from Platform pillar + SWOT
+be0ea37  feat: rebrand /solo-flows with real brand assets, drop revenue model
+6c956bd  feat: refresh About stats and Solo Flows timeline for new business direction
+7176783  fix: move SingleView close button off video volume control on mobile
+53f8882  feat: paginate UGC gallery into single row, 5 videos per page
+af84560  fix: correct model to Omni for Comfave foot drop bracing videos
+033dd7a  feat: add Comfave foot drop bracing UGC videos to Creative Library
+bfa9a6d  docs: update CLAUDE.md — Creative Library page, Project rename, mobile nav, Vercel Blob workflow
 5566306  fix: video thumbnails missing on mobile + unreachable modal close button
 de25567  fix: make Creative Library mobile-friendly
 8daf2d8  feat: add AI-generated feature hero image to Creative Library
