@@ -1,10 +1,15 @@
 export const STATS = [
   { value: 4, suffix: '+', labelKey: 'yearsAI' },
-  { value: 10, suffix: '', labelKey: 'agentsBuilt' },
-  { value: 6, suffix: '', labelKey: 'platforms' },
-  { value: 44, suffix: '', labelKey: 'designProjects' },
+  { value: 4, suffix: '', labelKey: 'aiInfluencerBrand' },
+  { value: 1, suffix: '', labelKey: 'techOPC' },
+  {
+    value: 4,
+    suffix: '',
+    labelKey: 'marketingNiches',
+    detail: 'Architecture & Interior / Education / Legal / E-commerce',
+    detailVi: 'Kiến Trúc & Nội Thất / Giáo Dục / Pháp Lý / TMĐT',
+  },
   { value: 603, suffix: '%', labelKey: 'growth' },
-  { value: 711, suffix: '', labelKey: 'tests' },
 ]
 
 export const SKILL_DIMENSIONS = [
@@ -38,10 +43,10 @@ export const SKILL_DIMENSIONS = [
 export const TIMELINE = [
   {
     year: '2025 →',
-    title: 'Solo Flows — Founder',
-    titleVi: 'Solo Flows — Người Sáng Lập',
-    description: 'Built a zero-headcount AI-native company. 10 agents across 3 machines, production platform with 711 tests, 5 revenue streams — all solo.',
-    descriptionVi: 'Xây dựng công ty AI-native không nhân sự. 10 agents trên 3 máy tính, nền tảng production với 711 tests, 5 luồng doanh thu — một mình.',
+    title: 'Solo Flows — Founder & AI Marketing Automation Executive',
+    titleVi: 'Solo Flows — Founder & AI Marketing Automation Executive',
+    description: 'Built a zero-headcount AI-native company. Launched Desk — a subscription-based AI marketing service for Vietnamese SMEs — manage 4 AI Influencer brands, and built a Multi-AI Agent Orchestration System for the Creative Media Pipeline on OpenClaw + Claude Code with Veo3, Gemini Omni, Seedance, Nano Banana Pro, GPT-Image-2, and more.',
+    descriptionVi: 'Xây dựng công ty AI-native không nhân sự. Ra mắt Desk — dịch vụ marketing AI dạng subscription cho SME Việt Nam — quản lý 4 thương hiệu AI Influencer, và hoàn thiện Multi-AI Agent Orchestration System cho Creative Media Pipeline dựa trên OpenClaw + Claude Code cùng các AI tool như Veo3, Gemini Omni, Seedance, Nano Banana Pro, GPT-Image-2,...',
     tech: ['OpenClaw', 'Claude Code', 'Next.js', 'Supabase', 'Codex'],
     isCurrent: true,
   },

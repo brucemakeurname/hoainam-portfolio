@@ -11,7 +11,7 @@ const t = {
     },
     hero: {
       role: '// AI · Agent · Tự Động Hoá · Executive',
-      tagline: 'Founder · Solo Flows · 10 Agents · 6 Nền Tảng',
+      tagline: 'Founder · Solo Flows · 4 AI Influencer · Tech OPC',
       downloadCv: 'Tải CV',
       email: 'c.nguyenhoainam11122000@gmail.com',
       phone: '0964 461 206',
@@ -19,11 +19,10 @@ const t = {
     },
     stats: {
       yearsAI: 'Năm với AI',
-      agentsBuilt: 'AI Agents',
-      platforms: 'Nền Tảng',
-      designProjects: 'Dự Án Thiết Kế',
+      aiInfluencerBrand: 'AI Influencer Brand',
+      techOPC: 'Tech OPC (One-Person Company)',
+      marketingNiches: 'Marketing Niches',
       growth: 'Tăng Trưởng',
-      tests: 'Tests Passing',
     },
     skills: {
       sectionLabel: '02 · Kỹ Năng',
@@ -124,7 +123,7 @@ const t = {
     },
     hero: {
       role: '// AI · Agent · Automation · Executive',
-      tagline: 'Founder · Solo Flows · 10 Agents · 6 Platforms',
+      tagline: 'Founder · Solo Flows · 4 AI Influencer · Tech OPC',
       downloadCv: 'Download CV',
       email: 'c.nguyenhoainam11122000@gmail.com',
       phone: '0964 461 206',
@@ -132,11 +131,10 @@ const t = {
     },
     stats: {
       yearsAI: 'Years with AI',
-      agentsBuilt: 'Agents Built',
-      platforms: 'Platforms',
-      designProjects: 'Design Projects',
+      aiInfluencerBrand: 'AI Influencer Brand',
+      techOPC: 'Tech OPC (One-Person Company)',
+      marketingNiches: 'Marketing Niches',
       growth: 'Growth Achieved',
-      tests: 'Tests Passing',
     },
     skills: {
       sectionLabel: '02 · Skill Dimensions',
