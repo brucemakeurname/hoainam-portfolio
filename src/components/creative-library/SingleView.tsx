@@ -32,11 +32,13 @@ export function SingleView({ item, onClose }: { item: CreativeItem | null; onClo
           onClick={onClose}
         >
           {/* Floating close — always reachable without scrolling, especially on mobile
-              where the media (9:16 video) can push the caption/close far down. */}
+              where the media (9:16 video) can push the caption/close far down.
+              Pinned to the left on mobile: native <video> controls (mute/fullscreen)
+              sit top-right on the video itself and were getting covered by the button. */}
           <button
             onClick={onClose}
             aria-label={tr.creativeLibrary.close}
-            className="fixed top-4 right-4 z-[110] flex items-center justify-center rounded-full"
+            className="fixed top-4 left-4 md:left-auto md:right-4 z-[110] flex items-center justify-center rounded-full"
             style={{ width: 36, height: 36, background: 'rgba(0,0,0,0.6)', color: '#fff', backdropFilter: 'blur(4px)' }}
           >
             <X size={18} />
