@@ -10,7 +10,7 @@ export function SwotGrid() {
 
   const QUADRANTS = [
     { key: 'strengths' as const, keyVi: 'strengthsVi' as const, labelKey: 'strengths' as const, color: 'var(--primary)', bg: 'var(--surface)' },
-    { key: 'weaknesses' as const, keyVi: 'weaknessesVi' as const, labelKey: 'weaknesses' as const, color: 'var(--accent)', bg: 'rgba(207,255,4,0.04)' },
+    { key: 'weaknesses' as const, keyVi: 'weaknessesVi' as const, labelKey: 'weaknesses' as const, color: 'var(--accent)', bg: 'rgba(37,118,248,0.04)' },
     { key: 'opportunities' as const, keyVi: 'opportunitiesVi' as const, labelKey: 'opportunities' as const, color: 'var(--primary)', bg: 'var(--surface)' },
     { key: 'threats' as const, keyVi: 'threatsVi' as const, labelKey: 'threats' as const, color: 'var(--text-muted)', bg: 'var(--card-bg)' },
   ]

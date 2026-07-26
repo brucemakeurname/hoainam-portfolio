@@ -43,10 +43,16 @@ function TwitterIcon({ size = 16 }: { size?: number }) {
     </svg>
   )
 }
+function TikTokIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.79a8.18 8.18 0 004.78 1.52V6.84a4.85 4.85 0 01-1.01-.15z"/>
+    </svg>
+  )
+}
 import { PitchHero } from '@/components/solo-flows/PitchHero'
 import { PillarSection } from '@/components/solo-flows/PillarSection'
 import { SwotGrid } from '@/components/solo-flows/SwotGrid'
-import { RevenueModel } from '@/components/solo-flows/RevenueModel'
 import { SOLOFLOWS_PILLARS, SOCIALS, SOLOFLOWS_COMPANY_SOCIALS, INFLUENCERS } from '@/lib/data'
 import { useLang } from '@/contexts/LanguageContext'
 import { useTranslations } from '@/lib/translations'
@@ -57,16 +63,30 @@ const SOCIAL_ICONS: Record<string, React.ReactNode> = {
   Linkedin: <LinkedinIcon size={16} />,
   Youtube: <YoutubeIcon size={16} />,
   Twitter: <TwitterIcon size={16} />,
+  TikTok: <TikTokIcon size={16} />,
   Music: <Music size={16} />,
   MessageCircle: <MessageCircle size={16} />,
 }
+
+// Solo Flows brand palette (crawled from soloflows.com) — scoped to this page only,
+// independent of the portfolio's own dark blue/lime theme and light/dark toggle.
+const SOLOFLOWS_THEME = {
+  '--bg': '#FFFAF5',
+  '--text': '#00003D',
+  '--text-muted': '#5C5C70',
+  '--primary': '#FFBF00',
+  '--accent': '#2576F8',
+  '--surface': 'rgba(0, 0, 61, 0.05)',
+  '--card-bg': 'rgba(255, 255, 255, 0.7)',
+  '--card-border': '#CECED9',
+} as React.CSSProperties
 
 export default function SoloFlowsPage() {
   const { lang } = useLang()
   const tr = useTranslations(lang)
 
   return (
-    <div style={{ background: 'var(--bg)' }}>
+    <div style={{ ...SOLOFLOWS_THEME, background: 'var(--bg)' }}>
       <PitchHero />
 
       {/* 01 Overview */}
@@ -106,9 +126,8 @@ export default function SoloFlowsPage() {
       </section>
 
       <SwotGrid />
-      <RevenueModel />
 
-      {/* 07 Solo Flows Company Channels */}
+      {/* 06 Solo Flows Company Channels */}
       <section className="py-20 max-w-5xl mx-auto px-6" style={{ borderTop: '1px solid var(--card-border)' }}>
         <p className="text-[10px] tracking-[4px] font-mono uppercase mb-8" style={{ color: 'var(--primary)' }}>{tr.soloFlows.companyLabel}</p>
         <div className="flex flex-wrap gap-3">
@@ -123,7 +142,7 @@ export default function SoloFlowsPage() {
         </div>
       </section>
 
-      {/* 08 AI Influencer Team */}
+      {/* 07 AI Influencer Team */}
       <section className="py-20 max-w-6xl mx-auto px-6" style={{ borderTop: '1px solid var(--card-border)' }}>
         <p className="text-[10px] tracking-[4px] font-mono uppercase mb-4" style={{ color: 'var(--primary)' }}>{tr.soloFlows.influencersLabel}</p>
         <p className="text-sm mb-12" style={{ color: 'var(--text-muted)' }}>{tr.soloFlows.influencersSubtitle}</p>
@@ -162,7 +181,7 @@ export default function SoloFlowsPage() {
         </div>
       </section>
 
-      {/* 09 Vision + CTA */}
+      {/* 08 Vision + CTA */}
       <section className="py-20 max-w-5xl mx-auto px-6 text-center" style={{ borderTop: '1px solid var(--card-border)' }}>
         <p className="text-[10px] tracking-[4px] font-mono uppercase mb-6" style={{ color: 'var(--accent)' }}>{tr.soloFlows.visionLabel}</p>
         <h2 className="text-2xl font-black mb-4" style={{ color: 'var(--text)' }}>{tr.soloFlows.visionTitle}</h2>

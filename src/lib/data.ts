@@ -185,7 +185,7 @@ export const SOLOFLOWS_PILLARS = [
     metrics: ['64 routes deployed', '711 tests passing', '62 DB migrations', '67 production bugs resolved', '5 revenue streams live'],
     metricsVi: ['64 routes đã triển khai', '711 tests đang chạy', '62 DB migrations', '67 production bugs đã xử lý', '5 luồng doanh thu đang hoạt động'],
     tech: 'Next.js 14 · TypeScript · Supabase · Cloudflare R2 · Vercel · Sepay + PayPal',
-    images: ['/images/projects/sf-platform-hero.png', '/images/projects/sf-booking.png', '/images/projects/sf-newfeed.png', '/images/projects/sf-explore.png'],
+    images: ['/images/soloflows/desk-preview.jpg', '/images/soloflows/hero-banner.jpg'],
   },
   {
     id: 'agents',
@@ -197,8 +197,8 @@ export const SOLOFLOWS_PILLARS = [
     whatVi: 'Thay thế cả team marketing + vận hành. CMO, Content, Video và Comms team hoạt động tự động trên 6 nền tảng, không cần can thiệp của con người.',
     how: 'Designed using Harness Engineering (orchestration architecture), Prompt Engineering (agent identity via SOUL.md/PSYCHE.md files), and a file-based LLM pipeline with zero Python dependencies.',
     howVi: 'Thiết kế bằng Harness Engineering (kiến trúc điều phối), Prompt Engineering (danh tính agent qua SOUL.md/PSYCHE.md) và LLM pipeline dựa trên file, không phụ thuộc Python.',
-    metrics: ['10 autonomous agents', '3 machines (BOD · Execution · CRM)', '105 AI skills installed', '6 social platforms automated', 'Discord as agent-to-agent bus'],
-    metricsVi: ['10 agents tự động', '3 máy tính (BOD · Thực Thi · CRM)', '105 AI skills đã cài', '6 nền tảng mạng xã hội tự động hoá', 'Discord làm bus giao tiếp agent'],
+    metrics: [],
+    metricsVi: [],
     tech: 'OpenClaw · Claude Code · Codex · Antigravity CLI · Kimi WebBridge · Veo3 · HeyGen · Remotion',
     images: ['/images/projects/sf-agents-log.jpg', '/images/projects/sf-agents-discord.jpg'],
   },
@@ -230,17 +230,10 @@ export const SWOT = {
   threatsVi: ['Hàng hoá hoá công cụ AI — lợi thế mất dần khi công cụ trở nên phổ biến', 'Các agency lớn hơn gia nhập không gian AI influencer với nhiều vốn hơn', 'Sự không chắc chắn về quy định nội dung do AI tạo ra tại Việt Nam'],
 }
 
-export const REVENUE_STREAMS = [
-  { labelEn: 'AI Content Credits', labelVi: 'Credits Nội Dung AI', detail: 'VND (Sepay QR) + USD (PayPal)', detailVi: 'VND (Sepay QR) + USD (PayPal)', icon: 'CreditCard' },
-  { labelEn: 'Booking Commission', labelVi: 'Hoa Hồng Đặt Hàng', detail: 'Per influencer campaign booked', detailVi: 'Theo chiến dịch influencer', icon: 'Package' },
-  { labelEn: 'VIP Subscription', labelVi: 'Đăng Ký VIP', detail: '700 credits/month recurring', detailVi: '700 credits/tháng định kỳ', icon: 'Star' },
-  { labelEn: 'SoloAcademy', labelVi: 'SoloAcademy', detail: 'Online courses (incoming)', detailVi: 'Khoá học online (sắp ra)', icon: 'GraduationCap' },
-  { labelEn: 'Brand Partnerships', labelVi: 'Hợp Tác Thương Hiệu', detail: 'Campaign collaborations', detailVi: 'Hợp tác chiến dịch', icon: 'Handshake' },
-]
-
 export const SOLOFLOWS_COMPANY_SOCIALS = [
   { label: 'Facebook', url: 'https://www.facebook.com/soloflows.avim', icon: 'Facebook' },
   { label: 'Instagram', url: 'https://www.instagram.com/soloflows_official/', icon: 'Instagram' },
+  { label: 'TikTok', url: 'https://www.tiktok.com/@soloflows.official', icon: 'TikTok' },
   { label: 'YouTube', url: 'https://www.youtube.com/@soloflows', icon: 'Youtube' },
   { label: 'X / Twitter', url: 'https://x.com/FlowsSolo86497', icon: 'Twitter' },
   { label: 'LinkedIn', url: 'https://www.linkedin.com/company/solo-flows/', icon: 'Linkedin' },
@@ -254,7 +247,7 @@ export const INFLUENCERS = [
     roleVi: 'AI Co-Founder & Tech Creator',
     bio: 'The strategic voice of Solo Flows — breaks down AI, automation, and the future of work for a tech-savvy audience.',
     bioVi: 'Tiếng nói chiến lược của Solo Flows — phân tích AI, tự động hoá và tương lai công việc cho khán giả am hiểu công nghệ.',
-    avatar: '/images/bruce.png',
+    avatar: '/images/soloflows/bruce.jpg',
     socials: [
       { label: 'Instagram', url: 'https://www.instagram.com/bruce_soloflows/', icon: 'Instagram' },
       { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61584449700344', icon: 'Facebook' },
@@ -269,7 +262,7 @@ export const INFLUENCERS = [
     roleVi: 'Nhạc Sĩ & Nghệ Sĩ Kỹ Thuật Số',
     bio: 'A mysterious AI musician blending electronic sound, visual art, and digital fashion at the intersection of AI and culture.',
     bioVi: 'Nhạc sĩ AI bí ẩn kết hợp âm nhạc điện tử, nghệ thuật thị giác và thời trang kỹ thuật số tại giao điểm của AI và văn hoá.',
-    avatar: '/images/mylara.jpg',
+    avatar: '/images/soloflows/mylara.jpg',
     socials: [
       { label: 'Instagram', url: 'https://www.instagram.com/mylara_vey/', icon: 'Instagram' },
       { label: 'Facebook', url: 'https://www.facebook.com/realmylara/', icon: 'Facebook' },
@@ -284,7 +277,7 @@ export const INFLUENCERS = [
     roleVi: 'Chuyên Gia Fitness & Lifestyle',
     bio: "Vietnam's AI fitness coach — authentic, motivational content on health, discipline, and daily routines.",
     bioVi: 'Huấn luyện viên fitness AI của Việt Nam — nội dung chân thực, truyền động lực về sức khoẻ, kỷ luật và thói quen hàng ngày.',
-    avatar: null,
+    avatar: '/images/soloflows/chu-sau.jpg',
     socials: [
       { label: 'Instagram', url: 'https://www.instagram.com/chusau.fit/', icon: 'Instagram' },
       { label: 'Facebook', url: 'https://www.facebook.com/chusau.fit/', icon: 'Facebook' },
@@ -299,7 +292,7 @@ export const INFLUENCERS = [
     roleVi: 'Biểu Tượng Thời Trang & Lifestyle',
     bio: 'An AI fashion influencer capturing Vietnamese Gen Z aesthetic — outfits, trends, and the intersection of technology and personal style.',
     bioVi: 'Influencer thời trang AI mang thẩm mỹ Gen Z Việt Nam — outfit, xu hướng và giao điểm của công nghệ với phong cách cá nhân.',
-    avatar: null,
+    avatar: '/images/soloflows/khanh-huyen.jpg',
     socials: [
       { label: 'Instagram', url: 'https://www.instagram.com/khanhhuyen.label/', icon: 'Instagram' },
       { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61572127204012', icon: 'Facebook' },

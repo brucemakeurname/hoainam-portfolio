@@ -67,9 +67,8 @@ src/
 │   │   └── SingleView.tsx         # Modal xem chi tiết kiểu Instagram — media + caption panel, floating close button
 │   ├── solo-flows/
 │   │   ├── PitchHero.tsx       # Full-screen hero Solo Flows
-│   │   ├── PillarSection.tsx   # Section cho từng pillar (Platform/Agents/CS)
-│   │   ├── SwotGrid.tsx        # SWOT analysis 2x2 grid
-│   │   └── RevenueModel.tsx    # 5 revenue stream cards
+│   │   ├── PillarSection.tsx   # Section cho từng pillar (Platform/Agents/CS), ảnh pillar.images[0] nếu có, metrics box ẩn nếu rỗng
+│   │   └── SwotGrid.tsx        # SWOT analysis 2x2 grid
 │   └── ui/
 │       ├── GrainOverlay.tsx    # Film grain overlay (z-index 9999)
 │       ├── GlowPanel.tsx       # Blue glow side panels
@@ -117,7 +116,7 @@ tr.timeline.{sectionLabel}
 tr.cta.{viewPortfolio, exploreSF}
 tr.portfolio.{sectionLabel, title, subtitle, featured, sfTitle, sfSubtitle, whatItDoes, howBuilt, otherProjects, geceLabel, processLabel, toolsLabel, noImages}   # title = "PROJECT" (đổi từ "PORTFOLIO")
 tr.creativeLibrary.{sectionLabel, title, subtitle, staticCreativeLabel, videoLabel, handmadeLabel, aiGenerativeLabel, commercialLabel, ugcLabel, modelLabel, durationLabel, languageLabel, languageVi, languageEn, languageFil, languageNone, close}
-tr.soloFlows.{heroTag, heroTagline, overviewLabel, overviewTitle, overviewBody, pillars[], whatItDoes, skillsLabel, metricsLabel, techLabel, namRoleLabel, namRoleTitle, namRoleBody, swotLabel, swotQuadrants.{strengths, weaknesses, opportunities, threats}, revenueLabel, companyLabel, influencersLabel, influencersSubtitle, visionLabel, visionTitle, visionBody, visitSite, getInTouch}
+tr.soloFlows.{heroTag, heroTagline, overviewLabel, overviewTitle, overviewBody, pillars[], whatItDoes, skillsLabel, metricsLabel, techLabel, namRoleLabel, namRoleTitle, namRoleBody, swotLabel, swotQuadrants.{strengths, weaknesses, opportunities, threats}, companyLabel, influencersLabel, influencersSubtitle, visionLabel, visionTitle, visionBody, visitSite, getInTouch}   # Revenue Model section đã bỏ (trang public, không lộ mô hình doanh thu) — không còn revenueLabel
 ```
 
 ### Bilingual data fields (trong data.ts)
@@ -126,7 +125,6 @@ Các array trong `data.ts` có thêm field `*Vi` suffix:
 - `titleVi`, `descriptionVi`, `categoryVi`, `noteVi`
 - `subtitleVi`, `whatVi`, `howVi`, `metricsVi[]`
 - `roleVi`, `bioVi`
-- `labelVi`, `detailVi` (REVENUE_STREAMS)
 - `strengthsVi[]`, `weaknessesVi[]`, `opportunitiesVi[]`, `threatsVi[]` (SWOT)
 
 ---
@@ -272,13 +270,12 @@ Video gốc cho Creative Library (chưa rename, chưa upload) nằm tại: `liba
 - [ ] **Domain:** Verify `hoainam.com.vn` đã trỏ đúng về Vercel
 
 ### Ưu tiên trung bình
-- [ ] **Avatar Chú Sáu & Khánh Huyền:** Hiện đang hiển thị initial letter — thêm ảnh thật vào data.ts + public/images/
+- [x] **Avatar Chú Sáu & Khánh Huyền:** ~~Hiện đang hiển thị initial letter~~ — đã crawl ảnh thật từ soloflows.com vào `public/images/soloflows/`
 - [x] **Mobile nav:** ~~Navigation chưa có mobile menu~~ — đã thêm hamburger toggle (`Navigation.tsx`), xem git history
 - [ ] **SEO metadata:** `project/page.tsx`, `creative-library/page.tsx` và `solo-flows/page.tsx` đã bỏ `metadata` export (vì `'use client'`) — cần tách metadata ra file riêng nếu cần SEO
 - [ ] **OG image:** Thêm open graph image để share đẹp trên social
 
 ### Tương lai
-- [ ] **SoloAcademy section:** Khi ra mắt khoá học, cập nhật REVENUE_STREAMS và thêm section mới
 - [ ] **Blog/Articles:** Thêm trang viết bài nếu cần
 - [ ] **Contact form:** Hiện chỉ có email link — có thể thêm form gửi trực tiếp
 
@@ -316,15 +313,6 @@ const SKILL_ICONS = {
   design: <Sparkles />,
   business: <BarChart3 />,
 }
-```
-
-### Revenue stream icons (RevenueModel.tsx)
-```ts
-{ icon: 'CreditCard' } → <CreditCard />
-{ icon: 'Package' }    → <Package />
-{ icon: 'Star' }       → <Star />
-{ icon: 'GraduationCap' } → <GraduationCap />
-{ icon: 'Handshake' }  → <Handshake />  // nếu không có thì dùng <Users />
 ```
 
 ---
@@ -369,7 +357,17 @@ Danh sách 6 projects hiện tại (thứ tự = thứ tự sidetab):
 5. `gece-crm` — GECE AI CRM (1 ảnh)
 6. `gece-design` — GECE Group Design Portfolio (5 ảnh từ /images/gece/)
 
-`SOLOFLOWS_PILLARS` cũng có `images[]` — dùng trong `SoloFlowsEcosystem.tsx` (PillarImageSlider).
+`SOLOFLOWS_PILLARS` cũng có `images[]` — dùng trong `SoloFlowsEcosystem.tsx` (PillarImageSlider, trang /project) và `PillarSection.tsx` (ảnh `images[0]`, trang /solo-flows).
+
+### Solo Flows brand palette (`/solo-flows` page only)
+
+Trang `/solo-flows` dùng bảng màu thương hiệu thật của Solo Flows (crawl từ soloflows.com), khác với theme dark blue/lime của phần còn lại của portfolio. Áp dụng qua object `SOLOFLOWS_THEME` (inline CSS custom properties) trên div gốc của `src/app/solo-flows/page.tsx` — override `--bg/--text/--text-muted/--primary/--accent/--surface/--card-bg/--card-border` chỉ trong phạm vi page này (Navigation ở ngoài div nên không bị ảnh hưởng, vẫn theo theme sáng/tối của site chính):
+```
+--bg: #FFFAF5 (cream)  --text: #00003D (navy)  --primary: #FFBF00 (gold)  --accent: #2576F8 (blue)
+```
+Ảnh thật (avatar 4 influencer, ảnh nền tảng Desk, hero banner) đã crawl về `public/images/soloflows/`.
+
+Trang này **không** hiển thị mô hình doanh thu (đã bỏ `RevenueModel.tsx` + `REVENUE_STREAMS`) vì là trang giới thiệu công khai.
 
 ---
 

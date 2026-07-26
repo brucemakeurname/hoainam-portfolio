@@ -9,7 +9,7 @@ export function PitchHero() {
   const tr = useTranslations(lang)
   return (
     <div className="relative h-screen flex items-center justify-center overflow-hidden grid-bg" style={{ background: 'var(--bg)' }}>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(207,255,4,0.06) 0%, transparent 70%)' }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,191,0,0.08) 0%, transparent 70%)' }} />
       <GlowPanel side="left" />
       <GlowPanel side="right" />
       <div className="relative z-10 text-center px-6">
@@ -18,7 +18,7 @@ export function PitchHero() {
           {tr.soloFlows.heroTag}
         </motion.p>
         <motion.h1 className="font-black uppercase leading-none select-none"
-          style={{ fontSize: 'clamp(80px, 14vw, 160px)', letterSpacing: '-6px', textShadow: '-3px 0 0 rgba(31,127,254,0.35), 3px 0 0 rgba(207,255,4,0.35)' }}
+          style={{ fontSize: 'clamp(80px, 14vw, 160px)', letterSpacing: '-6px', textShadow: '-3px 0 0 rgba(37,118,248,0.35), 3px 0 0 rgba(255,191,0,0.35)' }}
           initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, duration: 0.8 }}>
           <span className="block" style={{ color: 'var(--accent)' }}>SOLO</span>
           <span className="block" style={{ color: 'var(--text)' }}>FLOWS</span>
