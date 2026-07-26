@@ -182,8 +182,8 @@ export const SOLOFLOWS_PILLARS = [
     whatVi: 'Đặt hàng Influencer AI — khách hàng gửi brief, thanh toán QR, nhận chiến dịch influencer hoàn chỉnh trong 48 giờ. Không cần nhân sự vận hành.',
     how: 'Built using Vibecoding (Claude Code, Codex) and Context Engineering for product architecture. Full-stack product design from zero to production.',
     howVi: 'Xây dựng bằng Vibecoding (Claude Code, Codex) và Context Engineering cho kiến trúc sản phẩm. Thiết kế full-stack từ zero đến production.',
-    metrics: ['64 routes deployed', '711 tests passing', '62 DB migrations', '67 production bugs resolved', '5 revenue streams live'],
-    metricsVi: ['64 routes đã triển khai', '711 tests đang chạy', '62 DB migrations', '67 production bugs đã xử lý', '5 luồng doanh thu đang hoạt động'],
+    metrics: [],
+    metricsVi: [],
     tech: 'Next.js 14 · TypeScript · Supabase · Cloudflare R2 · Vercel · Sepay + PayPal',
     images: ['/images/soloflows/desk-preview.jpg', '/images/soloflows/hero-banner.jpg'],
   },
@@ -220,8 +220,8 @@ export const SOLOFLOWS_PILLARS = [
 ]
 
 export const SWOT = {
-  strengths: ['Zero overhead — no payroll, pure margin', 'Full-stack AI capability: engineer + marketer + operator in one', 'Production-tested architecture (711 tests, 5 live revenue streams)', 'Early-mover advantage in Vietnam AI influencer space'],
-  strengthsVi: ['Không chi phí cố định — không lương nhân viên, lợi nhuận thuần', 'Năng lực AI toàn diện: kỹ sư + marketer + vận hành trong một người', 'Kiến trúc đã kiểm thử production (711 tests, 5 luồng doanh thu)', 'Lợi thế người đi đầu trong không gian AI influencer tại Việt Nam'],
+  strengths: ['Zero overhead — no payroll, pure margin', 'Full-stack AI capability: engineer + marketer + operator in one', 'Production-tested, live AI agent architecture', 'Early-mover advantage in Vietnam AI influencer space'],
+  strengthsVi: ['Không chi phí cố định — không lương nhân viên, lợi nhuận thuần', 'Năng lực AI toàn diện: kỹ sư + marketer + vận hành trong một người', 'Kiến trúc AI agent đã kiểm thử production, đang hoạt động thật', 'Lợi thế người đi đầu trong không gian AI influencer tại Việt Nam'],
   weaknesses: ['Single point of failure — founder-dependent for strategic decisions', 'Early stage — brand awareness still growing', 'Limited capacity to scale rapidly without infrastructure investment'],
   weaknessesVi: ['Điểm lỗi duy nhất — phụ thuộc founder cho các quyết định chiến lược', 'Giai đoạn đầu — nhận diện thương hiệu đang phát triển', 'Năng lực mở rộng nhanh bị giới hạn nếu không đầu tư hạ tầng'],
   opportunities: ['SME AI adoption wave — massive untapped market in Vietnam', 'AI influencer market globally projected to grow 10× by 2027', 'SoloAcademy: recurring education revenue stream (incoming)', 'B2B: other companies want the same agent infrastructure'],
