@@ -14,6 +14,8 @@ const VIDEOS = [
   { slug: 'gucci-dress-ugc', file: 'gucci_dress_ugc.mp4' },
   { slug: 'ugc-new-gym-experience', file: 'UGC-new-gym-experience.mp4' },
   { slug: 'kling-motion-control', file: 'kling_20260211_Motion_Control__5673_0.mp4' },
+  { slug: 'comfave-footdrop-before-after', file: 'Comfave_Footdrop_Bracing_1_UGC_BeforeAfter.mp4' },
+  { slug: 'comfave-footdrop-social-proof', file: 'Comfave_Footdrop_Bracing_Video_2_UGC_SocialProof.mp4' },
 ]
 
 const LIBRARY_DIR = path.join(process.cwd(), 'libary')
@@ -26,8 +28,10 @@ async function main() {
   }
 
   const urls = {}
+  const filterSlugs = process.argv.slice(2)
+  const targets = filterSlugs.length > 0 ? VIDEOS.filter((v) => filterSlugs.includes(v.slug)) : VIDEOS
 
-  for (const { slug, file } of VIDEOS) {
+  for (const { slug, file } of targets) {
     const filePath = path.join(LIBRARY_DIR, file)
     if (!existsSync(filePath)) {
       console.error(`Missing source file: ${filePath}`)
