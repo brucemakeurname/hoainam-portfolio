@@ -149,7 +149,14 @@ export default function CreativeLibraryPage() {
             <h2 className="text-xl font-black mb-6" style={{ color: 'var(--text)' }}>
               {tr.creativeLibrary.videoLabel}
             </h2>
-            <CreativeGallery label={tr.creativeLibrary.ugcLabel} items={UGC_VIDEOS} onSelect={setSelected} />
+            <CreativeGallery
+              label={tr.creativeLibrary.ugcLabel}
+              items={UGC_VIDEOS}
+              onSelect={setSelected}
+              paginate
+              perPage={5}
+              autoSlideMs={10000}
+            />
             <CreativeGallery label={tr.creativeLibrary.commercialLabel} items={COMMERCIAL_VIDEOS} onSelect={setSelected} />
           </div>
         </div>
