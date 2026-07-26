@@ -50,6 +50,8 @@ function TikTokIcon({ size = 16 }: { size?: number }) {
     </svg>
   )
 }
+import { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 import { PitchHero } from '@/components/solo-flows/PitchHero'
 import { PillarSection } from '@/components/solo-flows/PillarSection'
 import { SwotGrid } from '@/components/solo-flows/SwotGrid'
@@ -69,8 +71,9 @@ const SOCIAL_ICONS: Record<string, React.ReactNode> = {
 }
 
 // Solo Flows brand palette (crawled from soloflows.com) — scoped to this page only,
-// independent of the portfolio's own dark blue/lime theme and light/dark toggle.
-const SOLOFLOWS_THEME = {
+// independent of the portfolio's own dark blue/lime theme. Follows the site's own
+// light/dark toggle with a light (cream/navy) and dark (navy/cream) variant.
+const SOLOFLOWS_LIGHT = {
   '--bg': '#FFFAF5',
   '--text': '#00003D',
   '--text-muted': '#5C5C70',
@@ -81,12 +84,27 @@ const SOLOFLOWS_THEME = {
   '--card-border': '#CECED9',
 } as React.CSSProperties
 
+const SOLOFLOWS_DARK = {
+  '--bg': '#0A0A24',
+  '--text': '#FFFAF5',
+  '--text-muted': 'rgba(255, 250, 245, 0.55)',
+  '--primary': '#FFBF00',
+  '--accent': '#4F93FF',
+  '--surface': 'rgba(255, 191, 0, 0.06)',
+  '--card-bg': 'rgba(255, 255, 255, 0.04)',
+  '--card-border': 'rgba(255, 255, 255, 0.12)',
+} as React.CSSProperties
+
 export default function SoloFlowsPage() {
   const { lang } = useLang()
   const tr = useTranslations(lang)
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+  const soloFlowsTheme = mounted && theme === 'light' ? SOLOFLOWS_LIGHT : SOLOFLOWS_DARK
 
   return (
-    <div style={{ ...SOLOFLOWS_THEME, background: 'var(--bg)' }}>
+    <div style={{ ...soloFlowsTheme, background: 'var(--bg)' }}>
       <PitchHero />
 
       {/* 01 Overview */}
